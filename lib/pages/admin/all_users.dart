@@ -1,20 +1,17 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/add_category.dart';
-import 'package:flutter_application_1/models/question.dart';
+import 'package:flutter_application_1/models/detail_user.dart';
 import 'package:flutter_application_1/pages/admin/common_widget.dart';
-import 'package:flutter_application_1/services/categoryService.dart';
+import 'package:http/http.dart' as http;
 
-class CategoryListPage extends StatefulWidget {
-  const CategoryListPage({super.key});
-
+class AllUsers extends StatefulWidget {
   @override
-  _CategoryListPageState createState() => _CategoryListPageState();
+  _AllUsersState createState() => _AllUsersState();
 }
 
-class _CategoryListPageState extends State<CategoryListPage> {
-  final CategoryService _categoryService = CategoryService();
-  List<AddCategory> _categories = [];
-  List<AddCategory> _filteredCategories = [];
+class _AllUsersState extends State<AllUsers> {
+  List<DetailUser> _users = [];
+  List<DetailUser> _filteredUsers = [];
   bool _isLoading = true;
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
@@ -22,29 +19,33 @@ class _CategoryListPageState extends State<CategoryListPage> {
   @override
   void initState() {
     super.initState();
-    _loadCategories();
+    _fetchUsers();
   }
 
-  void _loadCategories() async {
-    try {
-      List<AddCategory> categories = await _categoryService.getCategories();
+  Future<void> _fetchUsers() async {
+    final response =
+        await http.get(Uri.parse('http://localhost:5241/api/User/UserDetails'));
+
+    if (response.statusCode == 200) {
+      final List<dynamic> userJson = json.decode(response.body);
       setState(() {
-        _categories = categories;
-        _filteredCategories = categories;
+        _users = userJson.map((json) => DetailUser.fromJson(json)).toList();
+        _filteredUsers = _users;
         _isLoading = false;
       });
-    } catch (e) {
-      print('Failed to load categories: $e');
+    } else {
+      throw Exception('Failed to load users');
     }
   }
 
-  void _filterCategories(String query) {
-    List<AddCategory> filteredList = _categories.where((category) {
-      return category.title.toLowerCase().contains(query.toLowerCase()) ||
-          category.description.toLowerCase().contains(query.toLowerCase());
+  void _filterUsers(String query) {
+    List<DetailUser> filteredList = _users.where((user) {
+      return user.name.toLowerCase().contains(query.toLowerCase()) ||
+          user.surname.toLowerCase().contains(query.toLowerCase()) ||
+          user.email.toLowerCase().contains(query.toLowerCase());
     }).toList();
     setState(() {
-      _filteredCategories = filteredList;
+      _filteredUsers = filteredList;
     });
   }
 
@@ -52,7 +53,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
     setState(() {
       _isSearching = !_isSearching;
       if (!_isSearching) {
-        _filteredCategories = _categories;
+        _filteredUsers = _users;
         _searchController.clear();
       }
     });
@@ -74,7 +75,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
           title: _isSearching
               ? TextField(
                   controller: _searchController,
-                  onChanged: _filterCategories,
+                  onChanged: _filterUsers,
                   style: TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
                     focusColor: const Color.fromARGB(0, 242, 242, 242),
@@ -84,7 +85,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
                   ),
                 )
               : const Text(
-                  'Categories',
+                  'All Users',
                   style: TextStyle(color: Colors.white, fontSize: 24),
                 ),
           actions: [
@@ -100,12 +101,12 @@ class _CategoryListPageState extends State<CategoryListPage> {
         body: _isLoading
             ? Center(child: CircularProgressIndicator())
             : ListView.builder(
-                itemCount: _filteredCategories.length,
+                itemCount: _filteredUsers.length,
                 itemBuilder: (context, index) {
-                  final category = _filteredCategories[index];
+                  final user = _filteredUsers[index];
                   return Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16.0),
+                    margin:
+                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                     child: Card(
                       elevation: 1,
                       color: Colors.transparent,
@@ -114,23 +115,42 @@ class _CategoryListPageState extends State<CategoryListPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              category.title,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  child:
+                                      Icon(Icons.person, color: Colors.white),
+                                  backgroundColor:
+                                      Theme.of(context).primaryColor,
+                                ),
+                                SizedBox(width: 16.0),
+                                Expanded(
+                                  child: Text(
+                                    '${user.name} ${user.surname}',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(height: 8.0),
                             Text(
-                              category.description,
+                              'Email: ${user.email}',
                               style:
                                   TextStyle(fontSize: 16, color: Colors.white),
                             ),
                             SizedBox(height: 8.0),
                             Text(
-                              'Credit: ${category.credit}',
+                              'Phone: ${user.phoneNumber}',
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
+                            ),
+                            SizedBox(height: 8.0),
+                            Text(
+                              'Applications: ${user.applicationCount}',
                               style:
                                   TextStyle(fontSize: 16, color: Colors.white),
                             ),

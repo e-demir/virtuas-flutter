@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorSelect {
- static const primary = const Color(0xFFad65f9);
- static const secondary = const Color(0xFF7c00f7);
- static const background = const Color(0xFFf0f4ff);
+  static const primary = Color.fromARGB(206, 172, 101, 249);
+  static const secondary = Color.fromARGB(255, 124, 0, 247);
+  static const background = Color(0xFFf0f4ff);
 }

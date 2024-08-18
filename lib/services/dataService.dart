@@ -14,7 +14,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DataService {
-  final String categoryGetUrl = 'http://10.0.2.2:5241/api/Category/Get';
+  final String categoryGetUrl = 'http://Localhost:5241/api/Category/Get';
 
   Future<List<Category>> fetchCategories() async {
     List<Category> data = [];
@@ -38,7 +38,19 @@ class DataService {
     var clinicId = prefs.getInt('clinicId') as int;
 
     final response = await http.post(Uri.parse(
-        'http://10.0.2.2:5241/api/Category/GetByClinicId?clinicId=$clinicId'));
+        'http://Localhost:5241/api/Category/GetByClinicId?clinicId=$clinicId'));
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      return jsonResponse.map((cat) => Category.fromJson(cat)).toList();
+    } else {
+      throw Exception('Failed to load clinics');
+    }
+  }
+
+  Future<List<Category>> fetchSelectedCategoriesByClinicId(int clinicId) async {
+    final response = await http.post(Uri.parse(
+        'http://Localhost:5241/api/Category/GetByClinicId?clinicId=$clinicId'));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -51,8 +63,9 @@ class DataService {
   Future<void> updateClinicCategoires(List<int> selectedCategoryIds) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var clinicId = prefs.getInt('clinicId') as int;
-    final String apiUrl = 'http://10.0.2.2:5241/api/Clinics/UpdateCategory?clinicId=$clinicId';
-    
+    final String apiUrl =
+        'http://Localhost:5241/api/Clinics/UpdateCategory?clinicId=$clinicId';
+
     final String _body = jsonEncode(selectedCategoryIds);
     try {
       // Send a PUT request to the API
@@ -83,7 +96,7 @@ class DataService {
 Future<List<Question>> fetchQuestionsByCategoryId(int categoryId) async {
   List<Question> data = [];
   final String categoryGetUrl =
-      'http://10.0.2.2:5241/api/Question/GetByCategoryId?categoryId=$categoryId';
+      'http://Localhost:5241/api/Question/GetByCategoryId?categoryId=$categoryId';
 
   try {
     final response = await http.get(Uri.parse(categoryGetUrl));
@@ -100,7 +113,7 @@ Future<List<Question>> fetchQuestionsByCategoryId(int categoryId) async {
 }
 
 Future<void> editClinic(Clinic clinic) async {
-  String apiUrl = 'http://10.0.2.2:5241/api/Clinics/Update';
+  String apiUrl = 'http://Localhost:5241/api/Clinics/Update';
 
   var postData = jsonEncode(({
     'id': clinic.id,
@@ -127,7 +140,7 @@ Future<void> editClinic(Clinic clinic) async {
 
 Future<List<Clinic>> fetchClinics() async {
   final response =
-      await http.get(Uri.parse('http://10.0.2.2:5241/api/Clinics/Get'));
+      await http.get(Uri.parse('http://Localhost:5241/api/Clinics/Get'));
 
   if (response.statusCode == 200) {
     List jsonResponse = json.decode(response.body);
@@ -139,16 +152,16 @@ Future<List<Clinic>> fetchClinics() async {
 
 Future<void> deleteClinic(int clinicId) async {
   final response = await http.delete(
-      Uri.parse('http://10.0.2.2:5241/api/Clinics/Delete?id=$clinicId'));
+      Uri.parse('http://Localhost:5241/api/Clinics/Delete?id=$clinicId'));
   if (response.statusCode == 200) {
   } else {
     throw Exception('Failed to load clinics');
   }
 }
 
-Future<void> addCreditToclinic(int id, int newCredit) async {
+Future<void> addCreditToclinic(int id, int clinisCredit, int addCredit) async {
   final response = await http.put(Uri.parse(
-      'http://10.0.2.2:5241/api/Clinics/AddCreditToClinic?clinicId=$id&newCredit=$newCredit'));
+      'http://localhost:5241/api/Clinics/AddCreditToClinic?clinicId=$id&clinicCredit=$clinisCredit&newCredit=$addCredit'));
   if (response.statusCode == 200) {
   } else {
     throw Exception('Failed to load clinics');
@@ -157,7 +170,7 @@ Future<void> addCreditToclinic(int id, int newCredit) async {
 
 Future<ApplicationDetailsResponse> fetchApplications(int userId) async {
   final response = await http.get(Uri.parse(
-      'http://10.0.2.2:5241/api/Application/GetApplicationsWithAnswers?userId=$userId'));
+      'http://Localhost:5241/api/Application/GetApplicationsWithAnswers?userId=$userId'));
 
   if (response.statusCode == 200) {
     return ApplicationDetailsResponse.fromJson(jsonDecode(response.body));
@@ -166,14 +179,11 @@ Future<ApplicationDetailsResponse> fetchApplications(int userId) async {
   }
 }
 
-const String updateUserUrl = 'http://10.0.2.2:5241/api/User/Update';
+const String updateUserUrl = 'http://Localhost:5241/api/User/Update';
 
 Future<User> fetchUser(int userId) async {
-
-
-  
   final response = await http.post(
-    Uri.parse('http://10.0.2.2:5241/api/User/Profile?userId=$userId'),
+    Uri.parse('http://Localhost:5241/api/User/Profile?userId=$userId'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -208,7 +218,7 @@ Future<PossibleClientPreDataResponse> fetchApplicationsPreData() async {
   var x = prefs.getInt('clinicId') as int;
 
   final response = await http.get(Uri.parse(
-      'http://10.0.2.2:5241/api/Application/GetApplicationsPreData?clinicId=$x'));
+      'http://Localhost:5241/api/Application/GetApplicationsPreData?clinicId=$x'));
 
   if (response.statusCode == 200) {
     return PossibleClientPreDataResponse.fromJson(jsonDecode(response.body));
@@ -219,7 +229,7 @@ Future<PossibleClientPreDataResponse> fetchApplicationsPreData() async {
 
 Future<void> createCategory(AddCategory addCategory) async {
   // Örnek API URL
-  String apiUrl = 'http://10.0.2.2:5241/api/Category/Add';
+  String apiUrl = 'http://Localhost:5241/api/Category/Add';
 
   try {
     // Kategori bilgilerini ve soruları JSON formatına çevir
@@ -256,7 +266,7 @@ Future<void> createCategory(AddCategory addCategory) async {
 
 Future<int?> getClinicCredit(int? clinicId) async {
   final response = await http.get(Uri.parse(
-      'http://10.0.2.2:5241/api/Clinics/GetCredit?clinicId=$clinicId'));
+      'http://Localhost:5241/api/Clinics/GetCredit?clinicId=$clinicId'));
 
   if (response.statusCode == 200) {
     return int.parse(response.body);
@@ -266,7 +276,7 @@ Future<int?> getClinicCredit(int? clinicId) async {
 }
 
 Future<int?> giveOffer(int? clinicId, int applicationId, int price) async {
-  String apiUrl = 'http://10.0.2.2:5241/api/offer/make';
+  String apiUrl = 'http://Localhost:5241/api/offer/make';
   try {
     var postData = jsonEncode(({
       'clinicId': clinicId,
@@ -317,7 +327,7 @@ Future<ClientDataResponse> fetchMadeOffers() async {
   var clinicId = prefs.getInt('clinicId') as int;
 
   final response = await http.get(
-      Uri.parse('http://10.0.2.2:5241/api/Offer/GetMade?clinicId=$clinicId'));
+      Uri.parse('http://Localhost:5241/api/Offer/GetMade?clinicId=$clinicId'));
 
   if (response.statusCode == 200) {
     var x = ClientDataResponse.fromJson(jsonDecode(response.body));
@@ -340,8 +350,6 @@ Future<void> logout() async {
 
     // Clear data in SharedPreferences
     await prefs.clear();
-
-    
   } catch (e) {
     // Handle any errors that occur during logout process
     print('Error during logout: $e');
@@ -354,7 +362,7 @@ Future<Clinic> fetchClinic() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var clinicId = prefs.getInt('clinicId') as int;
 
-  String apiUrl = 'http://10.0.2.2:5241/api/clinics/getByid?id=$clinicId';
+  String apiUrl = 'http://Localhost:5241/api/clinics/getByid?id=$clinicId';
 
   final response = await http.get(Uri.parse(apiUrl));
 

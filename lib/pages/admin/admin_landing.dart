@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/admin/add_clinic.dart';
+import 'package:flutter_application_1/pages/admin/all_applications.dart';
+import 'package:flutter_application_1/pages/admin/all_users.dart';
 import 'package:flutter_application_1/pages/admin/list_clinics.dart';
 import 'package:flutter_application_1/pages/category/add_category.dart';
 import 'package:flutter_application_1/pages/category/list_category.dart';
+import 'package:flutter_application_1/pages/client/application_detail.dart';
 import 'package:flutter_application_1/services/dataService.dart';
+import 'common_widget.dart';
 
 class AdminPage extends StatelessWidget {
   final String text;
@@ -14,66 +18,40 @@ class AdminPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Card(
-        child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-          colors: [Color(0xfffeac5e), Color(0xffc779d0), Color(0xff4bc0c8)],
-          stops: [0, 0.5, 1],
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-        )
-      
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              
-              children: [
-                const SizedBox(height: 40),
-                const Text(
-                  "Welcome Admin!",
-                  style: TextStyle(
-                    fontSize: 35,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+        child: AdminCommanContainer(
+          child: Column(
+            children: [
+              const SizedBox(height: 40),
+              const TextWidget(
+                label: 'Welcome Admin',
+                size: 35,
+                weight: FontWeight.w400,
+                fontStyle: FontStyle.normal,
+              ),
+              const SizedBox(height: 40),
+              Expanded(
+                child: GridView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 40,
+                    mainAxisSpacing: 20,
                   ),
+                  itemCount: 6, // Number of items in the grid
+                  itemBuilder: (context, index) {
+                    return _buildGridItem(context, index);
+                  },
                 ),
-                
-                const Text(
-                  "What do you want to do today?",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.white,),
-                ),
-                const SizedBox(height: 40),
-                Expanded(  
-                                  
-                  child: GridView.builder(
-                    padding: const EdgeInsets.all(15),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,                      
-                      crossAxisSpacing: 30,
-                      mainAxisSpacing: 10,                      
-                    ),
-                    itemCount: 6, // Number of items in the grid
-                    itemBuilder: (context, index) {
-                      return _buildGridItem(context, index);
-                    },
-                  ),
-                ),
-                
-                ElevatedButton(
-                  onPressed: (){
-                    logout();
-                     Navigator.pushReplacementNamed(context, '/login');
-                  },                  
-                  child: const Text("Logout"),
-                ),
-                const SizedBox(height: 20),
-              ],
-            ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  logout();
+                  Navigator.pushReplacementNamed(context, '/login');
+                },
+                child: const Text("Logout"),
+              ),
+              const SizedBox(height: 20),
+            ],
           ),
         ),
       ),
@@ -82,182 +60,61 @@ class AdminPage extends StatelessWidget {
 
   Widget _buildGridItem(BuildContext context, int index) {
     List<Widget> buttons = [
-      RawMaterialButton(        
-        onPressed: () {
+      AdminPageButton(
+          onPress: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AddClinicPage()),
+            );
+          },
+          icon: Icons.add_rounded,
+          label: 'Add Clinic'),
+      AdminPageButton(
+        label: 'List Clinics',
+        icon: Icons.list_alt_outlined,
+        onPress: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const AddClinicPage()),
-          );
-        },        
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),          
-        ),
-        fillColor: const Color.fromARGB(74, 0, 0, 0),
-        child: const Column(
-            mainAxisSize: MainAxisSize.min, // Ensure the column takes minimum space
-            children: [
-              Text(
-                'Add Clinic',
-                style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8), // Space between text and icon
-              Icon(
-                Icons.add_rounded,
-                color: Colors.white,
-                size: 40,                
-              ),
-            ],
-          ),
-      ),
-      AdminPageButton(),
-      RawMaterialButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AddCategoryPage()),
+            MaterialPageRoute(builder: (context) => const ClinicsPage()),
           );
         },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-        ),
-        fillColor: const Color.fromARGB(74, 0, 0, 0),
-        child: const Column(
-            mainAxisSize: MainAxisSize.min, // Ensure the column takes minimum space
-            children: [
-              Text(
-                'Add Category',
-                style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8), // Space between text and icon
-              Icon(
-                Icons.add_card_sharp,
-                color: Colors.white,
-                size: 40,                
-              ),
-            ],
-          ),
       ),
-      RawMaterialButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const CategoryListPage()),
-          );
-        },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-        ),
-       fillColor: const Color.fromARGB(74, 0, 0, 0),
-        child: const Column(
-            mainAxisSize: MainAxisSize.min, // Ensure the column takes minimum space
-            children: [
-              Text(
-                'List Categories',
-                style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
+      AdminPageButton(
+          onPress: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AddCategoryPage()),
               ),
-              SizedBox(height: 8), // Space between text and icon
-              Icon(
-                Icons.list_rounded,
-                color: Colors.white,
-                size: 40,                
-              ),
-            ],
-          ),
-      ),
-      RawMaterialButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const CategoryListPage()),
-          );
-        },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-        ),
-        fillColor: const Color.fromARGB(74, 0, 0, 0),
-        child: const Column(
-            mainAxisSize: MainAxisSize.min, // Ensure the column takes minimum space
-            children: [
-              Text(
-                'All Users',
-                style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8), // Space between text and icon
-              Icon(
-                Icons.supervised_user_circle_sharp,
-                color: Colors.white,
-                size: 40,                
-              ),
-            ],
-          ),
-      ),
-      RawMaterialButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const CategoryListPage()),
-          );
-        },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-        ),
-       fillColor: const Color.fromARGB(74, 0, 0, 0),
-        child: const Column(
-            mainAxisSize: MainAxisSize.min, // Ensure the column takes minimum space
-            children: [
-              Text(
-                'All Applications',
-                style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8), // Space between text and icon
-              Icon(
-                Icons.verified_rounded,
-                color: Colors.white,
-                size: 40,                
-              ),
-            ],
-          ),
-      ),
+          icon: Icons.add_card_sharp,
+          label: 'Add Category'),
+      AdminPageButton(
+          onPress: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CategoryListPage()),
+            );
+          },
+          icon: Icons.list_rounded,
+          label: 'List Categories'),
+      AdminPageButton(
+          onPress: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AllUsers()),
+            );
+          },
+          icon: Icons.supervised_user_circle_sharp,
+          label: 'All Users'),
+      AdminPageButton(
+          onPress: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AllApplicationsPage()),
+            );
+          },
+          icon: Icons.verified_rounded,
+          label: 'All Applications')
     ];
     return buttons[index];
-  }
-
-  
-}
-
-class AdminPageButton extends StatelessWidget {
-  const AdminPageButton({
-    super.key    
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const ClinicsPage()),
-        );
-      },
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(50),
-      ),
-      fillColor: const Color.fromARGB(74, 0, 0, 0),
-      child: const Column(
-          mainAxisSize: MainAxisSize.min, // Ensure the column takes minimum space
-          children: [
-            Text(
-              'List Clinics',
-              style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8), // Space between text and icon
-            Icon(
-              Icons.list_alt_outlined,
-              color: Colors.white,
-              size: 40,                
-            ),
-          ],
-        ),
-    );
   }
 }

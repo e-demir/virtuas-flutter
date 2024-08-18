@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/category.dart';
 import 'package:flutter_application_1/models/clinic.dart';
 import 'package:flutter_application_1/pages/admin/clinic_add_credit.dart';
+import 'package:flutter_application_1/pages/admin/clinic_credit_history.dart';
+import 'package:flutter_application_1/pages/admin/common_widget.dart';
 import 'package:flutter_application_1/services/dataService.dart';
 
 class ClinicDetailPage extends StatefulWidget {
@@ -51,7 +53,7 @@ class _ClinicDetailPageState extends State<ClinicDetailPage> {
 
   void getSelectedClinics() async {
     List<Category> fetchedData =
-        await _dataService.fetchSelectedCategories();
+        await _dataService.fetchSelectedCategoriesByClinicId(widget.clinic.id);
     setState(() {
       selectedCategoires = fetchedData;
     });
@@ -126,114 +128,150 @@ class _ClinicDetailPageState extends State<ClinicDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Clinic Details'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.save),
-            onPressed: isUpdated
-                ? () {
-                    saveClinic();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Clinic updated successfully!')),
-                    );
-                    Future.delayed(const Duration(seconds: 1), () {
-                      Navigator.of(context).pushReplacementNamed('/admin');
-                    });
-                  }
-                : null,
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: <Widget>[
-            TextField(
-              controller: titleController,
-              decoration: const InputDecoration(labelText: 'Title'),
+    return AdminCommanContainer(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AdminAppBar(
+          label: 'Clinic Details',
+          action: [
+            IconButton(
+              icon: const Icon(Icons.save),
+              onPressed: isUpdated
+                  ? () {
+                      saveClinic();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Clinic updated successfully!')),
+                      );
+                      Future.delayed(const Duration(seconds: 1), () {
+                        Navigator.of(context).pushReplacementNamed('/admin');
+                      });
+                    }
+                  : null,
             ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: descriptionController,
-              decoration: const InputDecoration(labelText: 'Description'),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: addressController,
-              decoration: const InputDecoration(labelText: 'Address'),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: webAddressController,
-              decoration: const InputDecoration(labelText: 'Web Address'),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              widget.clinic.credit.toString(),
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-
-            // DropdownButtonFormField<Category>(
-            //   isExpanded: true,
-            //   hint: Text('Select Categories'),
-            //   value: null,
-            //   items: allCategories.map((Category category) {
-            //     return DropdownMenuItem<Category>(
-            //       value: category,
-            //       child: Text(category.title),
-            //     );
-            //   }).toList(),
-            //   onChanged: (Category? selectedCategory) {
-            //     if (selectedCategory != null &&
-            //         !selectedCategoires.contains(selectedCategory)) {
-            //       setState(() {
-            //         selectedCategoires.add(selectedCategory);
-            //         // selectedCategoryIds.add(selectedCategory.id);
-            //       });
-            //     }
-            //   },
-            //   decoration: InputDecoration(
-            //     border: OutlineInputBorder(),
-            //     filled: true,
-            //     fillColor: Colors.grey.shade200,
-            //   ),
-            // ),
-            const SizedBox(
-              height: 20,
-            ),
-            // Wrap(
-            //   spacing: 8.0,
-            //   runSpacing: 8.0,
-            //   children: selectedCategoires.map((Category category) {
-            //     return Chip(
-            //       label: Text(category.title),
-            //       onDeleted: () {
-            //         setState(() {
-            //           selectedCategoires.remove(category);
-            //           selectedCategoires.remove(category.id);
-            //         });
-            //       },
-            //     );
-            //   }).toList(),
-            // ),
-            ElevatedButton(
-              onPressed: () => _showDeleteConfirmationDialog(context),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-              child: const Text('Delete'),
-            ),
-            ElevatedButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddCreditPage(clinic: widget.clinic),
+          ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(
+            children: <Widget>[
+              AddTexfield(
+                textController: titleController,
+                label: 'Title',
+              ),
+              const SizedBox(height: 20),
+              AddTexfield(
+                textController: descriptionController,
+                label: 'Description',
+              ),
+              const SizedBox(height: 20),
+              AddTexfield(textController: addressController, label: 'Address'),
+              const SizedBox(height: 20),
+              AddTexfield(
+                  textController: webAddressController, label: 'Web Address'),
+              const SizedBox(height: 20),
+              TextWidget(
+                label: widget.clinic.credit.toString(),
+                fontStyle: FontStyle.normal,
+                size: 25,
+                weight: FontWeight.w600,
+              ),
+              const SizedBox(
+                height: 70,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 60),
+                child: ElevatedButton(
+                  onPressed: () => _showDeleteConfirmationDialog(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                  ),
+                  child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Delete',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 171, 65, 65),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15),
+                        ),
+                        Icon(
+                          Icons.delete,
+                          color: Color.fromARGB(255, 171, 65, 65),
+                        ),
+                      ]),
                 ),
               ),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-              child: const Text('Add Token'),
-            )
-          ],
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 60),
+                child: ElevatedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          AddCreditPage(clinic: widget.clinic),
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Add Token',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 78, 133, 178),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      Icon(Icons.add_shopping_cart,
+                          color: Color.fromARGB(255, 78, 133, 178))
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 60),
+                child: ElevatedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ClinicHistoryPage(
+                          id: widget.clinic.id,
+                          clinicTitle: widget.clinic.title),
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Token History',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 25, 37, 48),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      Icon(Icons.history,
+                          color: Color.fromARGB(255, 25, 37, 48))
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

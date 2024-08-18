@@ -38,7 +38,7 @@ class _LoginFormState extends State<LoginForm> {
     String password = _passwordController.text;
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String apiUrl = 'http://10.0.2.2:5241/api/Auth/Login';
+    String apiUrl = 'http://Localhost:5241/api/Auth/Login';
     var postData = jsonEncode({'username': username, 'password': password});
 
     try {
@@ -51,28 +51,26 @@ class _LoginFormState extends State<LoginForm> {
       );
 
       if (response.statusCode == 200) {
-        var jsonData = jsonDecode(response.body);        
+        var jsonData = jsonDecode(response.body);
         var role = jsonData["role"];
         var clinicId = jsonData["clinicId"];
         var userId = jsonData["id"];
-     
+
         if (role == 'admin') {
-           await storage.write(key: 'loggedInAs', value: "admin");
-          Navigator.pushReplacementNamed(context, '/admin');          
-        } 
-        else if (role == 'client') {
+          await storage.write(key: 'loggedInAs', value: "admin");
+          Navigator.pushReplacementNamed(context, '/admin');
+        } else if (role == 'client') {
           await storage.write(key: 'loggedInAs', value: "client");
-          await prefs.setInt("userId", userId);      
+          await prefs.setInt("userId", userId);
           Navigator.pushReplacementNamed(context, '/clientLandingPage');
-        } 
-        else if (role == 'clinic') {
-           await storage.write(key: 'loggedInAs', value: "clinic");
-           await prefs.setInt("clinicId", clinicId);      
-          Navigator.pushReplacementNamed(context, '/clinicLandingPage', arguments: {
-            'clinicId': clinicId,
-          });
+        } else if (role == 'clinic') {
+          await storage.write(key: 'loggedInAs', value: "clinic");
+          await prefs.setInt("clinicId", clinicId);
+          Navigator.pushReplacementNamed(context, '/clinicLandingPage',
+              arguments: {
+                'clinicId': clinicId,
+              });
         }
-        
       } else {
         print('Failed to login: ${response.statusCode}');
       }

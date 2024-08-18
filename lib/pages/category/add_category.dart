@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/models/add_category.dart';
 import 'package:flutter_application_1/models/question.dart';
+import 'package:flutter_application_1/pages/admin/common_widget.dart';
+import 'package:flutter_application_1/pages/category/comman_widget.dart';
 import 'package:flutter_application_1/services/dataService.dart';
+import 'comman_widget.dart';
 
 class AddCategoryPage extends StatefulWidget {
   const AddCategoryPage({super.key});
@@ -17,100 +20,121 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   TextEditingController creditController = TextEditingController();
   List<TextEditingController> questionControllers = [TextEditingController()];
 
+  void _validateInputs() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add Category'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: <Widget>[
-            TextField(
-              controller: titleController,
-              maxLength: 60,
-              minLines: 1,
-              maxLines: 2,
-              decoration: const InputDecoration(
-                labelText: 'Title',
+    return AdminCommanContainer(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AdminAppBar(
+          label: 'Add Category',
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(
+            children: <Widget>[
+              CategoryTexField(
+                controller: titleController,
+                label: 'Title',
+                maxLenght: 60,
               ),
-              onChanged: (_) => _validateInputs(),
-            ),
-            const SizedBox(height: 12.0),
-            TextField(
-              controller: descriptionController,
-              maxLength: 200,
-              minLines: 1,
-              maxLines: 4,
-              decoration: const InputDecoration(
-                labelText: 'Description',
+              const SizedBox(height: 12.0),
+              CategoryTexField(
+                controller: descriptionController,
+                label: 'Description',
+                maxLenght: 200,
               ),
-              onChanged: (_) => _validateInputs(),
-            ),
-            const SizedBox(height: 12.0),
-            TextField(
-              controller: creditController,
-              decoration:
-                  const InputDecoration(labelText: 'Credit', hintText: 'Max 100'),
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                CustomRangeTextInputFormatter(),
-              ],
-              onChanged: (_) => _validateInputs(),
-            ),
-            const SizedBox(height: 24.0),
-            const Text(
-              'Questions',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 12.0),
-            Column(
-              children: List.generate(
-                questionControllers.length,
-                (index) => Padding(
-                  padding: const EdgeInsets.only(bottom: 12.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: questionControllers[index],
-                          maxLength: 200,
-                          minLines: 1,
-                          maxLines: 4,
-                          decoration: InputDecoration(
-                            labelText: 'Question ${index + 1}',
+              const SizedBox(height: 12.0),
+              CategoryTexField(
+                controller: creditController,
+                label: 'Credit',
+                hintText: 'Max 100',
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  CustomRangeTextInputFormatter(),
+                ],
+              ),
+              const SizedBox(height: 24.0),
+              const Text(
+                'Questions',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(255, 255, 255, 255)),
+              ),
+              const SizedBox(height: 12.0),
+              Column(
+                children: List.generate(
+                  questionControllers.length,
+                  (index) => Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            cursorWidth: 1.0,
+                            style: const TextStyle(color: Colors.white),
+                            cursorColor: Colors.white,
+                            controller: questionControllers[index],
+                            maxLength: 200,
+                            minLines: 1,
+                            maxLines: 4,
+                            decoration: InputDecoration(
+                              labelText: 'Question ${index + 1}',
+                              labelStyle: const TextStyle(
+                                color: Color.fromARGB(206, 224, 247, 251),
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.transparent.withOpacity(0.3),
+                                  width: 1.0, // Alt çizgi kalınlığı (aktif)
+                                ),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(2),
+                                borderSide: BorderSide(
+                                  color: Colors.transparent.withOpacity(0.3),
+                                ),
+                              ),
+                            ),
+                            onChanged: (_) => _validateInputs(),
                           ),
-                          onChanged: (_) => _validateInputs(),
                         ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.remove_circle),
-                        onPressed: () {
-                          _removeQuestion(index);
-                          _validateInputs(); // Validate inputs after removing
-                        },
-                      ),
-                    ],
+                        IconButton(
+                          icon: const Icon(Icons.remove_circle),
+                          onPressed: () {
+                            _removeQuestion(index);
+                            _validateInputs(); // Validate inputs after removing
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 12.0),
-            if (questionControllers.length < 5)
+              const SizedBox(height: 40.0),
+              if (questionControllers.length < 5)
+                ElevatedButton(
+                  onPressed: () {
+                    _addQuestion();
+                  },
+                  child: const Text(
+                    'Add Question',
+                  ),
+                ),
+              const SizedBox(height: 15.0),
               ElevatedButton(
-                onPressed: () {
-                  _addQuestion();
-                },
-                child: const Text('Add Question'),
+                onPressed: _isSaveButtonEnabled() ? _saveCategory : null,
+                child: const Text('Save'),
               ),
-            const SizedBox(height: 24.0),
-            ElevatedButton(
-              onPressed: _isSaveButtonEnabled() ? _saveCategory : null,
-              child: const Text('Save'),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -129,10 +153,6 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
     }
 
     return false;
-  }
-
-  void _validateInputs() {
-    setState(() {});
   }
 
   void _saveCategory() {

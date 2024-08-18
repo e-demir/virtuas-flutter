@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/category.dart';
-import 'package:flutter_application_1/pages/category/category_detail.dart';
+import 'package:flutter_application_1/pages/client/client_selected_category.dart';
 import 'package:flutter_application_1/pages/client/applications.dart';
 import 'package:flutter_application_1/pages/client/profile.dart';
 import 'package:flutter_application_1/services/dataService.dart';
@@ -103,11 +103,9 @@ class _ClientLandingPageState extends State<ClientLandingPage> {
         title: const Text('Client Landing Page'),
         leading: IconButton(
             icon: Icon(Icons.exit_to_app),
-            onPressed: 
-              // Define the action when the button is pressed
-              logout
-            
-          ),
+            onPressed:
+                // Define the action when the button is pressed
+                logout),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

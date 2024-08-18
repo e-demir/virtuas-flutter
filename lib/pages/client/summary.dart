@@ -43,7 +43,7 @@ class _SummaryPageState extends State<SummaryPage> {
     List<Map<String, dynamic>> list =
         getAnswer.map((answer) => answer.toJson()).toList();
     String apiUrl =
-        'http://10.0.2.2:5241/api/Application/Add?userId=$userId&categoryId=$categoryId';
+        'http://Localhost:5241/api/Application/Add?userId=$userId&categoryId=$categoryId';
 
     var postData = jsonEncode(list);
     //POST isteği yapılıyor
@@ -57,7 +57,7 @@ class _SummaryPageState extends State<SummaryPage> {
 
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Registered successfully!')),
+        const SnackBar(content: Text('İşlem Başarılı!')),
       );
       Future.delayed(const Duration(seconds: 1), () {
         Navigator.of(context).pushReplacementNamed('/clientLandingPage');

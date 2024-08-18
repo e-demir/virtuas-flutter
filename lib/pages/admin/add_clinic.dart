@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/models/category.dart';
+import 'package:flutter_application_1/pages/admin/admin_landing.dart';
 import 'package:flutter_application_1/pages/admin/clinic_first_save.dart';
+import 'package:flutter_application_1/pages/admin/common_widget.dart';
 import 'package:flutter_application_1/services/dataService.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
@@ -38,7 +41,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
   }
 
   Future<void> _addClinic() async {
-    String clinicAddUrl = 'http://10.0.2.2:5241/api/clinics/add';
+    String clinicAddUrl = 'http://localhost:5241/api/clinics/add';
     var jsonData;
     var postData = jsonEncode({
       'title': _titleController.text,
@@ -76,121 +79,86 @@ class _AddClinicPageState extends State<AddClinicPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-       decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xfffeac5e), Color(0xff4bc0c8)],
-                  stops: [0, 1],
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                ),
-              ),
+    return AdminCommanContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        
-        appBar: AppBar(
-          title: const Text('Add Clinic',style: TextStyle(fontSize: 30, color: Colors.white),),centerTitle: true ,
-          backgroundColor: Colors.transparent,
-          leading: IconButton(
-            iconSize: 30,
-            color: Colors.white,
-            icon: const Icon(Icons.arrow_back_rounded),
-            onPressed: () => Navigator.pop(context),
-          ),
+        appBar: AdminAppBar(
+          label: 'Add Clinic',
         ),
-        body: Expanded(                
+        body: Expanded(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 14),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  const SizedBox(height: 40),                 
-                  TextField(
-                    controller: _titleController,
-                    cursorColor: Colors.white,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: const InputDecoration(
-                      labelText: 'Title',
-                      labelStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                  const SizedBox(height: 40),
+                  AddTexfield(
+                    textController: _titleController,
+                    label: 'Title',
+                    maxLenght: 20,
+                    maxLines: 1,
                   ),
                   const SizedBox(height: 12),
-                  TextField(
-                    style: const TextStyle(color: Colors.white),
-                    controller: _descriptionController,
-                    cursorColor: Colors.white,
-                    decoration: const InputDecoration(
-                      labelText: 'Description',                      
-                      labelStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,                        
-                      ),
-                    ),
-                    minLines: 2,
+                  AddTexfield(
+                    label: 'Description',
+                    textController: _descriptionController,
                     maxLines: 2,
-                    maxLength: 200,
-                    
+                    maxLenght: 200,
                   ),
                   const SizedBox(height: 12),
-                  TextField(
-                    style: const TextStyle(color: Colors.white),
-                    controller: _addressController,
-                    cursorColor: Colors.white,
-                    decoration: const InputDecoration(
-                      labelText: 'Address',
-                      labelStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    minLines: 2,
-                    maxLines: 2,
-                    maxLength: 200,
-                  ),
+                  AddTexfield(
+                      textController: _addressController,
+                      label: 'Adress',
+                      maxLenght: 200,
+                      maxLines: 2),
                   const SizedBox(height: 12),
-                  TextField(
-                    style: const TextStyle(color: Colors.white),
-                    controller: _webAddressController,
-                    cursorColor: Colors.white,
-                    decoration: const InputDecoration(
-                      labelText: 'Web Address',
-                      labelStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  AddTexfield(
+                      textController: _webAddressController,
+                      label: 'Web Adress',
+                      maxLenght: 50,
+                      maxLines: 1),
                   const SizedBox(height: 12),
-                  TextField(
-                    style: const TextStyle(color: Colors.white),
-                    controller: _emailController,
-                    cursorColor: Colors.white,
-                    decoration: const InputDecoration(
-                      labelText: 'Email for the clinic contact',
-                      labelStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  AddTexfield(
+                      textController: _emailController,
+                      label: 'Email for the clinic contact',
+                      maxLenght: 50,
+                      maxLines: 1),
                   const SizedBox(height: 30),
                   DropdownButtonFormField<Category>(
+                    decoration: const InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color.fromARGB(206, 224, 247, 251),
+                          width: 1.0, // Alt çizgi kalınlığı (aktif)
+                        ),
+                      ),
+                    ),
+                    dropdownColor: Color.fromARGB(206, 224, 247, 251),
                     isExpanded: true,
-                    hint: const Text('Select Categories'),
+                    hint: const Text(
+                      'Select Categories',
+                      style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromARGB(206, 224, 247, 251)),
+                    ),
                     value: null,
                     items: categories.map((Category category) {
                       return DropdownMenuItem<Category>(
                         value: category,
-                        child: Text(category.title),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(206, 197, 240, 247),
+                              borderRadius: BorderRadius.circular(10)),
+                          padding: EdgeInsets.all(10.0),
+                          child: Text(
+                            category.title,
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 166, 95, 194),
+                            ),
+                          ),
+                        ),
                       );
                     }).toList(),
                     onChanged: (Category? selectedCategory) {
@@ -203,11 +171,6 @@ class _AddClinicPageState extends State<AddClinicPage> {
                         });
                       }
                     },
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.grey.shade200,
-                    ),
                   ),
                   const SizedBox(height: 20.0),
                   Wrap(
@@ -215,7 +178,11 @@ class _AddClinicPageState extends State<AddClinicPage> {
                     runSpacing: 8.0,
                     children: selectedCategories.map((Category category) {
                       return Chip(
-                        label: Text(category.title),
+                        label: Text(
+                          category.title,
+                          style: const TextStyle(
+                              color: Color.fromARGB(206, 172, 101, 249)),
+                        ),
                         onDeleted: () {
                           setState(() {
                             selectedCategories.remove(category);
@@ -226,10 +193,11 @@ class _AddClinicPageState extends State<AddClinicPage> {
                     }).toList(),
                   ),
                   const SizedBox(height: 20),
-                  
                   ElevatedButton(
                     onPressed: _addClinic,
-                    child: const Text('Add Clinic'),
+                    child: const Text(
+                      'Add Clinic',
+                    ),
                   ),
                 ],
               ),
