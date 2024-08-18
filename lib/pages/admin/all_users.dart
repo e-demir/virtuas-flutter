@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/detail_user.dart';
 import 'package:flutter_application_1/pages/admin/common_widget.dart';
+import 'package:flutter_application_1/utils/common_info.dart';
 import 'package:http/http.dart' as http;
 
 class AllUsers extends StatefulWidget {
@@ -24,7 +25,7 @@ class _AllUsersState extends State<AllUsers> {
 
   Future<void> _fetchUsers() async {
     final response =
-        await http.get(Uri.parse('http://localhost:5241/api/User/UserDetails'));
+        await http.get(Uri.parse('${CommonInfo.baseApiUrl}User/UserDetails'));
 
     if (response.statusCode == 200) {
       final List<dynamic> userJson = json.decode(response.body);

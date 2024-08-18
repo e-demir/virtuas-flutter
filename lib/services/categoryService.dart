@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:flutter_application_1/models/add_category.dart';
+import 'package:flutter_application_1/utils/common_info.dart';
 import 'package:http/http.dart' as http;
 
 class CategoryService {
-  final String apiUrl = 'http://Localhost:5241/api/Category/Get';
+  final String apiUrl = '${CommonInfo.baseApiUrl}Category/Get';
 
   Future<List<AddCategory>> getCategories() async {
     var response = await http.get(Uri.parse(apiUrl));
@@ -17,7 +18,7 @@ class CategoryService {
   }
 
   Future<void> updateCategory(AddCategory category) async {
-    String apiUrl = 'http://Localhost:5241/api/Category/Update';
+    String apiUrl = '${CommonInfo.baseApiUrl}Category/Update';
 
     var jsonBody = jsonEncode({
       'id': category.id,
@@ -43,7 +44,7 @@ class CategoryService {
   }
 
   Future<void> deleteCategory(int categoryId) async {
-    String apiUrl = 'http://localhost:5241/api/Category/Delete?id=$categoryId';
+    String apiUrl = '${CommonInfo.baseApiUrl}Category/Delete?id=$categoryId';
 
     var response = await http.delete(Uri.parse(apiUrl));
 

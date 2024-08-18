@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/answer.dart';
 import 'package:flutter_application_1/models/summary.dart';
+import 'package:flutter_application_1/utils/common_info.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,7 +44,7 @@ class _SummaryPageState extends State<SummaryPage> {
     List<Map<String, dynamic>> list =
         getAnswer.map((answer) => answer.toJson()).toList();
     String apiUrl =
-        'http://Localhost:5241/api/Application/Add?userId=$userId&categoryId=$categoryId';
+        '${CommonInfo.baseApiUrl}Application/Add?userId=$userId&categoryId=$categoryId';
 
     var postData = jsonEncode(list);
     //POST isteği yapılıyor

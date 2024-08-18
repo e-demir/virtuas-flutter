@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/detail_application.dart';
 import 'package:flutter_application_1/pages/admin/common_widget.dart';
+import 'package:flutter_application_1/utils/common_info.dart';
 import 'package:http/http.dart' as http;
 
 class AllApplicationDetailPage extends StatelessWidget {
@@ -98,7 +99,7 @@ class _AllApplicationsPageState extends State<AllApplicationsPage> {
 
   Future<void> _fetchApplications() async {
     final response = await http.get(Uri.parse(
-        'http://localhost:5241/api/Application/GetAllApplicationsWithAnswers'));
+        '${CommonInfo.baseApiUrl}Application/GetAllApplicationsWithAnswers'));
 
     if (response.statusCode == 200) {
       final List<dynamic> applicationJson = json.decode(response.body);

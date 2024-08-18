@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/utils/common_info.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,7 +39,8 @@ class _LoginFormState extends State<LoginForm> {
     String password = _passwordController.text;
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String apiUrl = 'http://Localhost:5241/api/Auth/Login';
+    // String apiUrl = '${CommonInfo.baseApiUrl}Auth/Login';
+    String apiUrl = '${CommonInfo.baseApiUrl}auth/login';
     var postData = jsonEncode({'username': username, 'password': password});
 
     try {

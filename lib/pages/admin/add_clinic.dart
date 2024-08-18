@@ -5,6 +5,7 @@ import 'package:flutter_application_1/pages/admin/admin_landing.dart';
 import 'package:flutter_application_1/pages/admin/clinic_first_save.dart';
 import 'package:flutter_application_1/pages/admin/common_widget.dart';
 import 'package:flutter_application_1/services/dataService.dart';
+import 'package:flutter_application_1/utils/common_info.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -41,7 +42,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
   }
 
   Future<void> _addClinic() async {
-    String clinicAddUrl = 'http://localhost:5241/api/clinics/add';
+    String clinicAddUrl = '${CommonInfo.baseApiUrl}clinics/add';
     var jsonData;
     var postData = jsonEncode({
       'title': _titleController.text,

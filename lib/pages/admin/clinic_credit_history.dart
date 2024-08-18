@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/credit_history.dart';
+import 'package:flutter_application_1/utils/common_info.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_application_1/pages/admin/common_widget.dart'; // Bu dosyayı da eklediğinizden emin olun
 
@@ -20,7 +21,7 @@ class _ClinicHistoryPageState extends State<ClinicHistoryPage> {
 
   Future<List<CreditHistory>> fetchCreditHistory() async {
     final response = await http.get(Uri.parse(
-        'http://localhost:5241/api/Clinics/GetCreditHistoryss?clinicId=${widget.id}'));
+        '${CommonInfo.baseApiUrl}Clinics/GetCreditHistoryss?clinicId=${widget.id}'));
 
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);

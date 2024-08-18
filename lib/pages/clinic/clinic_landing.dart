@@ -25,7 +25,7 @@ class _ClinicLandingPageState extends State<ClinicLandingPage>
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
-    _tabController.index = 0; // Default to the Possible Customers tab
+    _tabController.index = 0; 
   }
 
   @override
@@ -63,10 +63,10 @@ class _ClinicLandingPageState extends State<ClinicLandingPage>
             padding: EdgeInsets.zero,
             children: <Widget>[
               const SizedBox(
-                height: 150.0,
+                height: 100.0,
                 child: DrawerHeader(
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: ColorSelect.secondary,
                   ),
                   child: Text(
                     'Vituras',
@@ -82,7 +82,7 @@ class _ClinicLandingPageState extends State<ClinicLandingPage>
                 title: const Text('Possible customers'),
                 onTap: () {
                   _tabController.index = 0;
-                  Navigator.of(context).pop(); // Close the drawer
+                  Navigator.of(context).pop(); 
                 },
               ),
               ListTile(
@@ -90,7 +90,7 @@ class _ClinicLandingPageState extends State<ClinicLandingPage>
                 title: const Text('Services'),
                 onTap: () {
                   _tabController.index = 1;
-                  Navigator.of(context).pop(); // Close the drawer
+                  Navigator.of(context).pop(); 
                 },
               ),
               ListTile(
@@ -98,7 +98,7 @@ class _ClinicLandingPageState extends State<ClinicLandingPage>
                 title: const Text('Sent Offers'),
                 onTap: () {
                   _tabController.index = 2;
-                  Navigator.of(context).pop(); // Close the drawer
+                  Navigator.of(context).pop();
                 },
               ),
               ListTile(
@@ -106,19 +106,17 @@ class _ClinicLandingPageState extends State<ClinicLandingPage>
                 title: const Text('Clinic Info'),
                 onTap: () {
                   _tabController.index = 3;
-                  Navigator.of(context).pop(); // Close the drawer
+                  Navigator.of(context).pop();
                 },
               ),
-              Divider(), // Optional: Add a divider before logout button
+              const Divider(),
+              const Spacer(), 
               ListTile(
                 leading: const Icon(Icons.exit_to_app),
                 title: const Text('Logout'),
                 onTap: () {
-                  logout;
-                  // Implement logout logic here
-                  Navigator.of(context).pop(); // Close the drawer
-                  // Example: Navigate to login page
-
+                  logout;                  
+                  Navigator.of(context).pop();                   
                   Navigator.pushReplacementNamed(context, '/login');
                 },
               ),
