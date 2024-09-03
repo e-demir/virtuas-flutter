@@ -7,7 +7,7 @@ class Application {
   String? categoryDescription;
   List<AnswerAndQuestion>? answers;
   int? offerCount;
-  List<String>? offeredClinics;
+  List<dynamic>? offeredClinics;
 
   Application({
     this.applicationId,
@@ -29,7 +29,7 @@ class Application {
           .map((answer) => AnswerAndQuestion.fromJson(answer))
           .toList(),
       offerCount: json['offerCount'],
-      offeredClinics: json['offerdClinics']
+      offeredClinics: json['offeredClinics']
     );
   }
 

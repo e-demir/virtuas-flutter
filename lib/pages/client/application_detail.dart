@@ -83,35 +83,37 @@ class ApplicationDetailPage extends StatelessWidget {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: application.offeredClinics != null && application.offeredClinics!.isNotEmpty ? application.offeredClinics!.map((answer) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${answer}:',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
+              children: application.offeredClinics != null &&
+                      application.offeredClinics!.isNotEmpty
+                  ? application.offeredClinics!.map((answer) {
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [                            
+                            Text(
+                              '${answer}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),                    
+                      );
+                    }).toList()
+                  : [
+                      // Return a list containing a single Text widget if no clinics are offered
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "No offered clinics available",
+                          style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
                     ],
-                  ),
-                );
-              }).toList() :
-              [  // Return a list containing a single Text widget if no clinics are offered
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            "No offered clinics available",
-            style: const TextStyle(
-              fontStyle: FontStyle.italic,
             ),
-          ),
-        ),
-      ],
-            ),
-
           ],
         ),
       ),
