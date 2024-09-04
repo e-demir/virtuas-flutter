@@ -81,6 +81,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       Uri.parse(apiUrl),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
       },
       body: postData,
     );

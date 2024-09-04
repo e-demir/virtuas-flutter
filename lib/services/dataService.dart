@@ -21,7 +21,11 @@ class DataService {
     List<Category> data = [];
 
     try {
-      final response = await http.get(Uri.parse(categoryGetUrl));
+      final response = await http.get(Uri.parse(categoryGetUrl),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },);
       if (response.statusCode == 200) {
         List<dynamic> jsonData = jsonDecode(response.body);
         data = jsonData.map((json) => Category.fromJson(json)).toList();
@@ -39,7 +43,11 @@ class DataService {
     var clinicId = prefs.getInt('clinicId') as int;
 
     final response = await http.post(Uri.parse(
-        '${CommonInfo.baseApiUrl}Category/GetByClinicId?clinicId=$clinicId'));
+        '${CommonInfo.baseApiUrl}Category/GetByClinicId?clinicId=$clinicId'),
+        headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },);
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -51,7 +59,11 @@ class DataService {
 
   Future<List<Category>> fetchSelectedCategoriesByClinicId(int clinicId) async {
     final response = await http.post(Uri.parse(
-        '${CommonInfo.baseApiUrl}Category/GetByClinicId?clinicId=$clinicId'));
+        '${CommonInfo.baseApiUrl}Category/GetByClinicId?clinicId=$clinicId'),
+        headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },);
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -72,9 +84,10 @@ class DataService {
       // Send a PUT request to the API
       final response = await http.put(
         Uri.parse(apiUrl),
-        headers: {
-          'Content-Type': 'application/json', // Set the content type to JSON
-        },
+        headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },
         body: _body, // Convert the request body to JSON
       );
 
@@ -100,7 +113,11 @@ Future<List<Question>> fetchQuestionsByCategoryId(int categoryId) async {
       '${CommonInfo.baseApiUrl}Question/GetByCategoryId?categoryId=$categoryId';
 
   try {
-    final response = await http.get(Uri.parse(categoryGetUrl));
+    final response = await http.get(Uri.parse(categoryGetUrl),
+    headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },);
     if (response.statusCode == 200) {
       List<dynamic> jsonData = jsonDecode(response.body);
       data = jsonData.map((json) => Question.fromJson(json)).toList();
@@ -129,8 +146,9 @@ Future<void> editClinic(Clinic clinic) async {
   var response = await http.post(
     Uri.parse(apiUrl),
     headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },
     body: postData,
   );
 
@@ -141,7 +159,11 @@ Future<void> editClinic(Clinic clinic) async {
 
 Future<List<Clinic>> fetchClinics() async {
   final response =
-      await http.get(Uri.parse('${CommonInfo.baseApiUrl}Clinics/Get'));
+      await http.get(Uri.parse('${CommonInfo.baseApiUrl}Clinics/Get'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },);
 
   if (response.statusCode == 200) {
     List jsonResponse = json.decode(response.body);
@@ -153,7 +175,11 @@ Future<List<Clinic>> fetchClinics() async {
 
 Future<void> deleteClinic(int clinicId) async {
   final response = await http.delete(
-      Uri.parse('${CommonInfo.baseApiUrl}Clinics/Delete?id=$clinicId'));
+      Uri.parse('${CommonInfo.baseApiUrl}Clinics/Delete?id=$clinicId'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },);
   if (response.statusCode == 200) {
   } else {
     throw Exception('Failed to load clinics');
@@ -162,7 +188,11 @@ Future<void> deleteClinic(int clinicId) async {
 
 Future<void> addCreditToclinic(int id, int clinisCredit, int addCredit) async {
   final response = await http.put(Uri.parse(
-      '${CommonInfo.baseApiUrl}Clinics/AddCreditToClinic?clinicId=$id&clinicCredit=$clinisCredit&newCredit=$addCredit'));
+      '${CommonInfo.baseApiUrl}Clinics/AddCreditToClinic?clinicId=$id&clinicCredit=$clinisCredit&newCredit=$addCredit'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },);
   if (response.statusCode == 200) {
   } else {
     throw Exception('Failed to load clinics');
@@ -171,7 +201,11 @@ Future<void> addCreditToclinic(int id, int clinisCredit, int addCredit) async {
 
 Future<ApplicationDetailsResponse> fetchApplications(int userId) async {
   final response = await http.get(Uri.parse(
-      '${CommonInfo.baseApiUrl}Application/GetApplicationsWithAnswers?userId=$userId'));
+      '${CommonInfo.baseApiUrl}Application/GetApplicationsWithAnswers?userId=$userId'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },);
 
   if (response.statusCode == 200) {
     return ApplicationDetailsResponse.fromJson(jsonDecode(response.body));
@@ -186,8 +220,9 @@ Future<User> fetchUser(int userId) async {
   final response = await http.post(
     Uri.parse('${CommonInfo.baseApiUrl}User/Profile?userId=$userId'),
     headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },
     body: jsonEncode({'userId': userId}),
   );
 
@@ -202,8 +237,9 @@ Future<User> updateUser(User user) async {
   final response = await http.post(
     Uri.parse(updateUserUrl),
     headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },
     body: jsonEncode(user.toJson()),
   );
 
@@ -219,7 +255,13 @@ Future<PossibleClientPreDataResponse> fetchApplicationsPreData() async {
   var x = prefs.getInt('clinicId') as int;
 
   final response = await http.get(Uri.parse(
-      '${CommonInfo.baseApiUrl}Application/GetApplicationsPreData?clinicId=$x'));
+      '${CommonInfo.baseApiUrl}Application/GetApplicationsPreData?clinicId=$x'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      }
+
+      );
 
   if (response.statusCode == 200) {
     return PossibleClientPreDataResponse.fromJson(jsonDecode(response.body));
@@ -248,6 +290,7 @@ Future<void> createCategory(AddCategory addCategory) async {
       Uri.parse(apiUrl),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
       },
       body: jsonBody,
     );
@@ -267,7 +310,12 @@ Future<void> createCategory(AddCategory addCategory) async {
 
 Future<int?> getClinicCredit(int? clinicId) async {
   final response = await http.get(Uri.parse(
-      '${CommonInfo.baseApiUrl}Clinics/GetCredit?clinicId=$clinicId'));
+      '${CommonInfo.baseApiUrl}Clinics/GetCredit?clinicId=$clinicId'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },
+      );
 
   if (response.statusCode == 200) {
     return int.parse(response.body);
@@ -290,6 +338,7 @@ Future<int?> giveOffer(int? clinicId, int applicationId, int price) async {
       Uri.parse(apiUrl),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
       },
       body: postData,
     );
@@ -328,13 +377,52 @@ Future<ClientDataResponse> fetchMadeOffers() async {
   var clinicId = prefs.getInt('clinicId') as int;
 
   final response = await http.get(
-      Uri.parse('${CommonInfo.baseApiUrl}Offer/GetMade?clinicId=$clinicId'));
+      Uri.parse('${CommonInfo.baseApiUrl}Offer/GetMade?clinicId=$clinicId'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },
+      );
 
   if (response.statusCode == 200) {
     var x = ClientDataResponse.fromJson(jsonDecode(response.body));
     return x;
   } else {
     throw Exception('Failed to load applications');
+  }
+}
+
+Future<bool> renewPassword(String username, String password) async {
+  String apiUrl = '${CommonInfo.baseApiUrl}auth/RenewPassword';
+  try {
+    var postData = jsonEncode(({
+      'newPassword': password,
+      'username':username      
+    }));
+
+    // POST isteği yapılıyor
+    var response = await http.post(
+      Uri.parse(apiUrl),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',   
+        'Authorization' : 'basic YXBweWtvOjE5MDM='     
+      },
+      body: postData,
+    );
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return true;
+    } else {
+      // API call failed
+      showErrorMessage('Failed to make API call. Status Code: ${response.statusCode}');
+      return false;
+      // Example: Show error message
+    }
+  } catch (e) {
+    print('Exception occurred: $e');
+    // Example: Show error message
+    showErrorMessage('Exception occurred: $e');
+    return false;
+    
   }
 }
 
@@ -365,7 +453,11 @@ Future<Clinic> fetchClinic() async {
 
   String apiUrl = '${CommonInfo.baseApiUrl}clinics/getByid?id=$clinicId';
 
-  final response = await http.get(Uri.parse(apiUrl));
+  final response = await http.get(Uri.parse(apiUrl),
+  headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },);
 
   if (response.statusCode == 200) {
     return Clinic.fromJson(jsonDecode(response.body));

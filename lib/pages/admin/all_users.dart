@@ -25,7 +25,11 @@ class _AllUsersState extends State<AllUsers> {
 
   Future<void> _fetchUsers() async {
     final response =
-        await http.get(Uri.parse('${CommonInfo.baseApiUrl}User/UserDetails'));
+        await http.get(Uri.parse('${CommonInfo.baseApiUrl}User/UserDetails'),
+        headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },);
 
     if (response.statusCode == 200) {
       final List<dynamic> userJson = json.decode(response.body);

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/common/renew_password.dart';
 import 'package:flutter_application_1/utils/common_info.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -73,7 +74,17 @@ class _LoginFormState extends State<LoginForm> {
                 'clinicId': clinicId,
               });
         }
-      } else {
+      } else if(response.statusCode == 401) {
+        Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => RenewPasswordPage(
+                  username: username,                  
+                )),
+      );
+      }
+            
+      else {
         print('Failed to login: ${response.statusCode}');
       }
     } catch (e) {

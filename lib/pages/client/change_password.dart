@@ -29,8 +29,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       final response = await http.post(
         Uri.parse('${CommonInfo.baseApiUrl}Clinics/RenewPassword'),
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },
         body: jsonEncode(<String, String>{
           'newPassword': newPassword,
         }),

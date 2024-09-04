@@ -99,7 +99,11 @@ class _AllApplicationsPageState extends State<AllApplicationsPage> {
 
   Future<void> _fetchApplications() async {
     final response = await http.get(Uri.parse(
-        '${CommonInfo.baseApiUrl}Application/GetAllApplicationsWithAnswers'));
+        '${CommonInfo.baseApiUrl}Application/GetAllApplicationsWithAnswers'),
+        headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },);
 
     if (response.statusCode == 200) {
       final List<dynamic> applicationJson = json.decode(response.body);

@@ -21,7 +21,11 @@ class _ClinicHistoryPageState extends State<ClinicHistoryPage> {
 
   Future<List<CreditHistory>> fetchCreditHistory() async {
     final response = await http.get(Uri.parse(
-        '${CommonInfo.baseApiUrl}Clinics/GetCreditHistoryss?clinicId=${widget.id}'));
+        '${CommonInfo.baseApiUrl}Clinics/GetCreditHistoryss?clinicId=${widget.id}'),
+        headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },);
 
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);

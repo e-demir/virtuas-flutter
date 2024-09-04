@@ -53,6 +53,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
       Uri.parse(clinicAddUrl),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
       },
       body: postData,
     );

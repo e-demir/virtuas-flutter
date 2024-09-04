@@ -32,6 +32,7 @@ class CategoryService {
       Uri.parse(apiUrl),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
       },
       body: jsonBody,
     );
@@ -46,7 +47,11 @@ class CategoryService {
   Future<void> deleteCategory(int categoryId) async {
     String apiUrl = '${CommonInfo.baseApiUrl}Category/Delete?id=$categoryId';
 
-    var response = await http.delete(Uri.parse(apiUrl));
+    var response = await http.delete(Uri.parse(apiUrl),
+    headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },);
 
     if (response.statusCode == 200) {
       print('Category deleted successfully!');

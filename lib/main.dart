@@ -5,6 +5,7 @@ import 'package:flutter_application_1/pages/client/client_landing.dart';
 import 'package:flutter_application_1/pages/client/register.dart';
 import 'package:flutter_application_1/pages/clinic/clinic_landing.dart';
 import 'package:flutter_application_1/pages/common/login.dart';
+import 'package:flutter_application_1/pages/common/renew_password.dart';
 import 'package:flutter_application_1/pages/common/welcome.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -58,7 +59,7 @@ const MaterialColor customMaterialColor = MaterialColor(
               ),
           '/register': (context) => const RegistrationPage(),
           '/login': (context) => const LoginPage(),
-          '/clientLandingPage': (context) => const ClientLandingPage(),
+          '/clientLandingPage': (context) => const ClientLandingPage(),          
           '/clinicLandingPage': (context) {
             return const ClinicLandingPage();
           },
