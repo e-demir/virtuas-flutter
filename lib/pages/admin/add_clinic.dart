@@ -1,3 +1,4 @@
+import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/models/category.dart';
@@ -27,6 +28,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _webAddressController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   @override
   void initState() {
@@ -50,7 +52,8 @@ class _AddClinicPageState extends State<AddClinicPage> {
       "address": _addressController.text,
       "webaddress": _webAddressController.text,
       "email": _emailController.text,
-      "categories": selectedCategoryIds
+      "categories": selectedCategoryIds,
+      "username":_usernameController.text
     });
 
     var response = await http.post(
@@ -74,7 +77,18 @@ class _AddClinicPageState extends State<AddClinicPage> {
                   password: password,
                 )),
       );
-    } else {
+    }
+    else if(response.statusCode==409){
+        ArtSweetAlert.show(
+  context: context,
+  artDialogArgs: ArtDialogArgs(
+    type: ArtSweetAlertType.danger,
+    title: "Error",
+    text: response.body
+  )
+);
+    } 
+    else {
       print('Failed to make POST request.');
     }
   }
@@ -85,7 +99,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AdminAppBar(
-          label: 'Add Clinic',
+          label: 'Klinik Ekle',
         ),
         body: Expanded(
           child: SingleChildScrollView(
@@ -95,15 +109,22 @@ class _AddClinicPageState extends State<AddClinicPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   const SizedBox(height: 40),
-                  AddTexfield(
-                    textController: _titleController,
-                    label: 'Title',
+                   AddTexfield(
+                    textController: _usernameController,
+                    label: 'Kullanıcı Adı',
                     maxLenght: 20,
                     maxLines: 1,
                   ),
                   const SizedBox(height: 12),
                   AddTexfield(
-                    label: 'Description',
+                    textController: _titleController,
+                    label: 'Klinik Adı',
+                    maxLenght: 20,
+                    maxLines: 1,
+                  ),
+                  const SizedBox(height: 12),
+                  AddTexfield(
+                    label: 'Klinik Açıklaması',
                     textController: _descriptionController,
                     maxLines: 2,
                     maxLenght: 200,
@@ -111,19 +132,19 @@ class _AddClinicPageState extends State<AddClinicPage> {
                   const SizedBox(height: 12),
                   AddTexfield(
                       textController: _addressController,
-                      label: 'Adress',
+                      label: 'Adres',
                       maxLenght: 200,
                       maxLines: 2),
                   const SizedBox(height: 12),
                   AddTexfield(
                       textController: _webAddressController,
-                      label: 'Web Adress',
+                      label: 'Web Adresi',
                       maxLenght: 50,
                       maxLines: 1),
                   const SizedBox(height: 12),
                   AddTexfield(
                       textController: _emailController,
-                      label: 'Email for the clinic contact',
+                      label: 'İletişim Maili',
                       maxLenght: 50,
                       maxLines: 1),
                   const SizedBox(height: 30),
@@ -139,7 +160,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
                     dropdownColor: Color.fromARGB(206, 224, 247, 251),
                     isExpanded: true,
                     hint: const Text(
-                      'Select Categories',
+                      'Kategori Seçiniz',
                       style: TextStyle(
                           fontSize: 19,
                           fontWeight: FontWeight.w500,
@@ -198,7 +219,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
                   ElevatedButton(
                     onPressed: _addClinic,
                     child: const Text(
-                      'Add Clinic',
+                      'Ekle',
                     ),
                   ),
                 ],

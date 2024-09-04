@@ -42,6 +42,7 @@ class AdminPageButton extends StatelessWidget {
       onPressed: onPress,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50),
+        
       ),
       fillColor: const Color.fromARGB(74, 0, 0, 0),
       child: Column(
@@ -52,7 +53,7 @@ class AdminPageButton extends StatelessWidget {
             label,
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 22,
+              fontSize: 19,
               fontWeight: FontWeight.w300,
             ),
           ),
@@ -60,7 +61,7 @@ class AdminPageButton extends StatelessWidget {
           Icon(
             icon,
             color: Colors.white,
-            size: 35,
+            size: 25,
           ),
         ],
       ),

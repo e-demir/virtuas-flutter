@@ -23,19 +23,19 @@ class AdminPage extends StatelessWidget {
             children: [
               const SizedBox(height: 40),
               const TextWidget(
-                label: 'Welcome Admin',
+                label: 'Admin Sayfası',
                 size: 35,
                 weight: FontWeight.w400,
                 fontStyle: FontStyle.normal,
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 80),
               Expanded(
                 child: GridView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 40,
-                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 10,
                   ),
                   itemCount: 6, // Number of items in the grid
                   itemBuilder: (context, index) {
@@ -48,7 +48,7 @@ class AdminPage extends StatelessWidget {
                   logout();
                   Navigator.pushReplacementNamed(context, '/login');
                 },
-                child: const Text("Logout"),
+                child: const Text("Çıkış Yap"),
               ),
               const SizedBox(height: 20),
             ],
@@ -68,9 +68,9 @@ class AdminPage extends StatelessWidget {
             );
           },
           icon: Icons.add_rounded,
-          label: 'Add Clinic'),
+          label: 'Klinik Ekle'),
       AdminPageButton(
-        label: 'List Clinics',
+        label: 'Klinik Listele',
         icon: Icons.list_alt_outlined,
         onPress: () {
           Navigator.push(
@@ -86,7 +86,7 @@ class AdminPage extends StatelessWidget {
                     builder: (context) => const AddCategoryPage()),
               ),
           icon: Icons.add_card_sharp,
-          label: 'Add Category'),
+          label: 'Kategori Ekle'),
       AdminPageButton(
           onPress: () {
             Navigator.push(
@@ -95,7 +95,7 @@ class AdminPage extends StatelessWidget {
             );
           },
           icon: Icons.list_rounded,
-          label: 'List Categories'),
+          label: 'Kategori Listele'),
       AdminPageButton(
           onPress: () {
             Navigator.push(
@@ -104,7 +104,7 @@ class AdminPage extends StatelessWidget {
             );
           },
           icon: Icons.supervised_user_circle_sharp,
-          label: 'All Users'),
+          label: 'Kullanıcılar'),
       AdminPageButton(
           onPress: () {
             Navigator.push(
@@ -113,7 +113,7 @@ class AdminPage extends StatelessWidget {
             );
           },
           icon: Icons.verified_rounded,
-          label: 'All Applications')
+          label: 'Başvurular')
     ];
     return buttons[index];
   }
