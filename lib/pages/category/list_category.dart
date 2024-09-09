@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/add_category.dart';
-import 'package:flutter_application_1/models/question.dart';
-import 'package:flutter_application_1/pages/admin/common_widget.dart';
+import 'package:flutter_application_1/models/add_category.dart'; // Update sayfasının import edilmesi
+import 'package:flutter_application_1/pages/category/update_category.dart';
 import 'package:flutter_application_1/services/categoryService.dart';
+import 'package:flutter_application_1/pages/admin/common_widget.dart'; // Admin common widget
 
 class CategoryListPage extends StatefulWidget {
   const CategoryListPage({super.key});
@@ -58,6 +58,18 @@ class _CategoryListPageState extends State<CategoryListPage> {
     });
   }
 
+  void _navigateToUpdateCategoryPage(AddCategory category) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => UpdateCategoryPage(category: category),
+      ),
+    ).then((_) {
+      // Eğer güncelleme yapılmışsa, sayfayı yeniden yükleyelim
+      _loadCategories();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return AdminCommanContainer(
@@ -103,38 +115,42 @@ class _CategoryListPageState extends State<CategoryListPage> {
                 itemCount: _filteredCategories.length,
                 itemBuilder: (context, index) {
                   final category = _filteredCategories[index];
-                  return Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16.0),
-                    child: Card(
-                      elevation: 1,
-                      color: Colors.transparent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              category.title,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                  return GestureDetector(
+                    onTap: () => _navigateToUpdateCategoryPage(
+                        category), // Tıklama ile düzenleme sayfasına yönlendirme
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 16.0),
+                      child: Card(
+                        elevation: 1,
+                        color: Colors.transparent,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                category.title,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 8.0),
-                            Text(
-                              category.description,
-                              style:
-                                  const TextStyle(fontSize: 16, color: Colors.white),
-                            ),
-                            const SizedBox(height: 8.0),
-                            Text(
-                              'Credit: ${category.credit}',
-                              style:
-                                  const TextStyle(fontSize: 16, color: Colors.white),
-                            ),
-                          ],
+                              const SizedBox(height: 8.0),
+                              Text(
+                                category.description,
+                                style: const TextStyle(
+                                    fontSize: 16, color: Colors.white),
+                              ),
+                              const SizedBox(height: 8.0),
+                              Text(
+                                'Credit: ${category.credit}',
+                                style: const TextStyle(
+                                    fontSize: 16, color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
