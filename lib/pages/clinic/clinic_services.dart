@@ -5,6 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_application_1/services/dataService.dart';
 
 class ClinicServicesPage extends StatefulWidget {
+  const ClinicServicesPage({super.key});
+
   @override
   _ClinicServicesPageState createState() => _ClinicServicesPageState();
 }
@@ -24,11 +26,11 @@ class _ClinicServicesPageState extends State<ClinicServicesPage> {
 
   void fetchDataOnLoad() async {
     List<Category> fetchedData = await _dataService.fetchCategories();
-    List<Category> _existingCategories =
+    List<Category> existingCategories =
         await _dataService.fetchSelectedCategories();
     setState(() {
       categories = fetchedData;
-      existingCategories = _existingCategories;
+      existingCategories = existingCategories;
       selectedCategories.addAll(existingCategories);
       selectedCategoryIds =
           existingCategories.map((category) => category.id).toList();
@@ -123,7 +125,7 @@ class _ClinicServicesPageState extends State<ClinicServicesPage> {
                 filled: true,
                 fillColor:
                     ColorSelect.secondary, // Replace with ColorSelect.secondary
-                labelStyle: TextStyle(color: Colors.white)
+                labelStyle: const TextStyle(color: Colors.white)
                 // Hint text color
                 // Text color
                 ),
@@ -195,17 +197,17 @@ class _ClinicServicesPageState extends State<ClinicServicesPage> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Onay'),
-          content: Text('Emin misiniz?'),
+          title: const Text('Onay'),
+          content: const Text('Emin misiniz?'),
           actions: <Widget>[
             TextButton(
-              child: Text('Hayır'),
+              child: const Text('Hayır'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Evet'),
+              child: const Text('Evet'),
               onPressed: () async {
                 Navigator.of(context).pop();
                 await onConfirm();

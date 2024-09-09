@@ -157,7 +157,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
                         ),
                       ),
                     ),
-                    dropdownColor: Color.fromARGB(206, 224, 247, 251),
+                    dropdownColor: const Color.fromARGB(206, 224, 247, 251),
                     isExpanded: true,
                     hint: const Text(
                       'Kategori Seçiniz',
@@ -172,9 +172,9 @@ class _AddClinicPageState extends State<AddClinicPage> {
                         value: category,
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(206, 197, 240, 247),
+                              color: const Color.fromARGB(206, 197, 240, 247),
                               borderRadius: BorderRadius.circular(10)),
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: Text(
                             category.title,
                             style: const TextStyle(

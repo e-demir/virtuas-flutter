@@ -67,7 +67,7 @@ class _ClinicsPageState extends State<ClinicsPage> {
               ? TextField(
                   controller: _searchController,
                   onChanged: _filterClinics,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
                     focusColor: Color.fromARGB(0, 242, 242, 242),
                     hintText: 'Search...',
@@ -125,21 +125,21 @@ class _ClinicsPageState extends State<ClinicsPage> {
                                     _filteredClinics[index].title,
                                     style: const TextStyle(
                                         fontSize: 20,
-                                        color: const Color.fromARGB(
+                                        color: Color.fromARGB(
                                             255, 255, 255, 255)),
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
                                     _filteredClinics[index].description,
                                     style: const TextStyle(
-                                        color: const Color.fromARGB(
+                                        color: Color.fromARGB(
                                             255, 255, 255, 255)),
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
                                       _filteredClinics[index].credit.toString(),
                                       style: const TextStyle(
-                                          color: const Color.fromARGB(
+                                          color: Color.fromARGB(
                                               255, 255, 255, 255))),
                                 ],
                               ),

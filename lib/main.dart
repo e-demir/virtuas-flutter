@@ -5,7 +5,6 @@ import 'package:flutter_application_1/pages/client/client_landing.dart';
 import 'package:flutter_application_1/pages/client/register.dart';
 import 'package:flutter_application_1/pages/clinic/clinic_landing.dart';
 import 'package:flutter_application_1/pages/common/login.dart';
-import 'package:flutter_application_1/pages/common/renew_password.dart';
 import 'package:flutter_application_1/pages/common/welcome.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -28,18 +27,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const int _customPrimaryValue = 0xFFf0f4ff;
+    const int customPrimaryValue = 0xFFf0f4ff;
 
 // Define a MaterialColor from the custom color
 const MaterialColor customMaterialColor = MaterialColor(
-  _customPrimaryValue,
+  customPrimaryValue,
   <int, Color>{
     50: Color(0xFFf3e5f5),
     100: Color(0xFFe1bee7),
     200: Color(0xFFce93d8),
     300: Color(0xFFba68c8),
     400: Color(0xFFab47bc),
-    500: Color(_customPrimaryValue),
+    500: Color(customPrimaryValue),
     600: Color(0xFF9c27b0),
     700: Color(0xFF8e24aa),
     800: Color(0xFF7b1fa2),

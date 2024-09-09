@@ -49,7 +49,7 @@ class _PossibleClientPreDataDetailPageState
       child: Scaffold(
         appBar: AppBar(),
         body: _isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
@@ -258,7 +258,7 @@ class _PossibleClientPreDataDetailPageState
     });
 
     // Simulated delay to mimic API call
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     try {
       var result = giveOffer(clinicId, applicationId, price);
@@ -273,11 +273,11 @@ class _PossibleClientPreDataDetailPageState
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Offer Given Successfully'),
-            content: Text('Your offer has been successfully given.'),
+            title: const Text('Offer Given Successfully'),
+            content: const Text('Your offer has been successfully given.'),
             actions: <Widget>[
               TextButton(
-                child: Text('OK'),
+                child: const Text('OK'),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close dialog
                   Navigator.of(context).pop(); // Go back
@@ -298,7 +298,7 @@ class _PossibleClientPreDataDetailPageState
       // Handle API call errors
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error giving offer: $e'),
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
       ));
     } finally {
       setState(() {

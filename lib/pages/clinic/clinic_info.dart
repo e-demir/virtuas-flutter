@@ -4,6 +4,8 @@ import 'package:flutter_application_1/services/dataService.dart';
 import 'package:flutter_application_1/utils/color_select.dart';
 
 class ClinicInfoPage extends StatefulWidget {
+  const ClinicInfoPage({super.key});
+
   @override
   _ClinicPageState createState() => _ClinicPageState();
 }

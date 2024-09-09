@@ -5,7 +5,7 @@ class RenewPasswordPage extends StatefulWidget {
   final String username;
 
   // Constructor to accept the username parameter
-  RenewPasswordPage({required this.username});
+  const RenewPasswordPage({super.key, required this.username});
 
   @override
   _RenewPasswordPageState createState() => _RenewPasswordPageState();
@@ -35,7 +35,7 @@ class _RenewPasswordPageState extends State<RenewPasswordPage> {
     if (_formKey.currentState?.validate() ?? false) {
       // Handle the password renewal logic here
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Processing Renewal')),
+        const SnackBar(content: Text('Processing Renewal')),
       );
 
       // Call an API to renew the password
@@ -43,12 +43,12 @@ class _RenewPasswordPageState extends State<RenewPasswordPage> {
 
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Password successfully renewed')),
+          const SnackBar(content: Text('Password successfully renewed')),
         );
         Navigator.pushReplacementNamed(context, '/login'); // Go back to the previous screen
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to renew password')),
+          const SnackBar(content: Text('Failed to renew password')),
         );
       }
     }
@@ -61,7 +61,7 @@ class _RenewPasswordPageState extends State<RenewPasswordPage> {
         title: Text('Renew Password for ${widget.username}'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -90,7 +90,7 @@ class _RenewPasswordPageState extends State<RenewPasswordPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
                 controller: _confirmPasswordController,
                 obscureText: !_isConfirmPasswordVisible,
@@ -115,10 +115,10 @@ class _RenewPasswordPageState extends State<RenewPasswordPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: _submit,
-                child: Text('Renew Password'),
+                child: const Text('Renew Password'),
               ),
             ],
           ),

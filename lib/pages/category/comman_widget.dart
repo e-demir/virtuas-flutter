@@ -42,7 +42,7 @@ class _CategoryTexFieldState extends State<CategoryTexField> {
       decoration: InputDecoration(
         labelText: widget.label,
         hintText: widget.hintText,
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: Color.fromARGB(255, 195, 242, 247),
           fontSize: 13,
           fontWeight: FontWeight.w300,

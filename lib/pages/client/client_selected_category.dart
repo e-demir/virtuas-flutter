@@ -5,7 +5,8 @@ import 'package:flutter_application_1/models/question.dart';
 import 'package:flutter_application_1/pages/client/summary.dart';
 import 'package:flutter_application_1/services/categoryService.dart';
 import 'package:flutter_application_1/services/dataService.dart'; // Assuming DataService contains deleteQuestionById
-import 'package:flutter_application_1/models/summary.dart'; // Import your model
+import 'package:flutter_application_1/models/summary.dart';
+import 'package:flutter_application_1/utils/common_style.dart'; // Import your model
 
 class CategoryDetailPage extends StatefulWidget {
   final Category? category;
@@ -44,8 +45,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
 
   void deleteQuestion(int questionId) async {
     try {
-      await CategoryService().deleteCategory(
-          questionId); // Example usage, adjust as per your actual implementation
+      await CategoryService().deleteCategory(questionId); // Adjust as needed
       setState(() {
         questions.removeWhere((question) => question.id == questionId);
       });
@@ -77,94 +77,123 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.category?.title ?? 'Category Detail')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Kategori Adı: ${widget.category?.title ?? 'Unknown'}'),
-            const SizedBox(height: 8),
-            Text(
-                'Açıklama: ${widget.category?.description ?? 'No description'}'),
-            Expanded(
-              child: ListView.builder(
-                itemCount: questions.length,
-                itemBuilder: (context, index) {
-                  Question question = questions[index];
-                  return Dismissible(
-                    key: Key(question.id.toString()),
-                    onDismissed: (direction) {
-                      deleteQuestion(question.id);
-                    },
-                    confirmDismiss: (direction) async {
-                      return await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Delete Question'),
-                            content: const Text(
-                                'Are you sure you want to delete this question?'),
-                            actions: <Widget>[
-                              TextButton(
-                                child: const Text('Cancel'),
-                                onPressed: () {
-                                  Navigator.of(context).pop(false);
-                                },
+      appBar: AppBar(
+        toolbarHeight: 50.0, // Adjust height as needed
+        flexibleSpace: Container(
+          decoration: CommonStyle.boxDecoration,
+          child: Center(
+            child: Text(
+              'Application Info', // Adjust title as needed
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: Colors.white,
+                  ),
+            ),
+          ),
+        ),
+      ),
+      body: Container(
+        decoration: CommonStyle.boxDecoration,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(         
+          
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                Card(
+                  elevation: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.category, color: Color(0xff1276ef), size: 30),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Text(
+                                widget.category?.title ?? 'Unknown',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              TextButton(
-                                child: const Text('Delete'),
-                                onPressed: () {
-                                  Navigator.of(context).pop(true);
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    background: Container(
-                      color: Colors.red,
-                      alignment: Alignment.centerRight,
-                      padding: const EdgeInsets.only(right: 20.0),
-                      child: const Icon(Icons.delete, color: Colors.white),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            question.title,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 8),
-                          TextField(
-                            decoration: const InputDecoration(
-                              hintText: 'Enter your answer here',
-                              border: OutlineInputBorder(),
                             ),
-                            onChanged: (value) {
-                              setState(() {
-                                answers[question.id] = value;
-                              });
-                            },
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Text(widget.category?.description ?? 'No description'),
+                        const SizedBox(height: 16),
+                        if (questions.isNotEmpty) ...[
+                          const Text(
+                            'Questions:',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
+                          const SizedBox(height: 16),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              for (var question in questions) ...[
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.question_answer, color: Color(0xff1276ef), size: 30),
+                                          const SizedBox(width: 16),
+                                          Expanded(
+                                            child: Text(
+                                              question.title,
+                                              style: const TextStyle(fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 8),
+                                      TextField(
+                                        decoration: const InputDecoration(
+                                          hintText: 'Enter your answer here',
+                                          border: OutlineInputBorder(),
+                                        ),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            answers[question.id] = value;
+                                          });
+                                        },
+                                      ),
+                                      const SizedBox(height: 16),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                        ] else ...[
+                          const Text('No questions available.'),
                         ],
-                      ),
+                      ],
                     ),
-                  );
-                },
-              ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: saveAndNavigateToSummaryPage,
+                    child: const Text('Save and View Summary'),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 16),
-            Center(
-              child: ElevatedButton(
-                onPressed: saveAndNavigateToSummaryPage,
-                child: const Text('Save and View Summary'),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

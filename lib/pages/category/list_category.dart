@@ -75,9 +75,9 @@ class _CategoryListPageState extends State<CategoryListPage> {
               ? TextField(
                   controller: _searchController,
                   onChanged: _filterCategories,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
-                    focusColor: const Color.fromARGB(0, 242, 242, 242),
+                    focusColor: Color.fromARGB(0, 242, 242, 242),
                     hintText: 'Search...',
                     hintStyle: TextStyle(fontSize: 15, color: Colors.white),
                     border: InputBorder.none,
@@ -98,7 +98,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
           ],
         ),
         body: _isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : ListView.builder(
                 itemCount: _filteredCategories.length,
                 itemBuilder: (context, index) {
@@ -122,17 +122,17 @@ class _CategoryListPageState extends State<CategoryListPage> {
                                 color: Colors.white,
                               ),
                             ),
-                            SizedBox(height: 8.0),
+                            const SizedBox(height: 8.0),
                             Text(
                               category.description,
                               style:
-                                  TextStyle(fontSize: 16, color: Colors.white),
+                                  const TextStyle(fontSize: 16, color: Colors.white),
                             ),
-                            SizedBox(height: 8.0),
+                            const SizedBox(height: 8.0),
                             Text(
                               'Credit: ${category.credit}',
                               style:
-                                  TextStyle(fontSize: 16, color: Colors.white),
+                                  const TextStyle(fontSize: 16, color: Colors.white),
                             ),
                           ],
                         ),

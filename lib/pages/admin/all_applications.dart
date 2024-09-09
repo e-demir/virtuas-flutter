@@ -80,6 +80,8 @@ class AllApplicationDetailPage extends StatelessWidget {
 }
 
 class AllApplicationsPage extends StatefulWidget {
+  const AllApplicationsPage({super.key});
+
   @override
   _AllApplicationsPageState createState() => _AllApplicationsPageState();
 }
@@ -157,9 +159,9 @@ class _AllApplicationsPageState extends State<AllApplicationsPage> {
               ? TextField(
                   controller: _searchController,
                   onChanged: _filterApplications,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
-                    focusColor: const Color.fromARGB(0, 242, 242, 242),
+                    focusColor: Color.fromARGB(0, 242, 242, 242),
                     hintText: 'Search...',
                     hintStyle: TextStyle(fontSize: 15, color: Colors.white),
                     border: InputBorder.none,
@@ -180,7 +182,7 @@ class _AllApplicationsPageState extends State<AllApplicationsPage> {
           ],
         ),
         body: _isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : ListView.builder(
                 itemCount: _filteredApplications.length,
                 itemBuilder: (context, index) {
@@ -190,14 +192,14 @@ class _AllApplicationsPageState extends State<AllApplicationsPage> {
                     child: Card(
                       color: Colors.transparent,
                       margin:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                          const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                       elevation: 1,
                       child: ListTile(
-                        contentPadding: EdgeInsets.all(16.0),
+                        contentPadding: const EdgeInsets.all(16.0),
                         leading: CircleAvatar(
-                          child: Icon(Icons.person),
                           backgroundColor: Theme.of(context).primaryColor,
                           foregroundColor: Colors.white,
+                          child: Icon(Icons.person),
                         ),
                         title: Text(
                           '${application.username} ${application.userSurname}',
@@ -208,9 +210,9 @@ class _AllApplicationsPageState extends State<AllApplicationsPage> {
                         ),
                         subtitle: Text(
                           'Category: ${application.categoryTitle}',
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
-                        trailing: Icon(
+                        trailing: const Icon(
                           Icons.arrow_forward,
                           color: Colors.white,
                         ),

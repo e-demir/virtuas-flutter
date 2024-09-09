@@ -79,7 +79,7 @@ class DataService {
     final String apiUrl =
         '${CommonInfo.baseApiUrl}Clinics/UpdateCategory?clinicId=$clinicId';
 
-    final String _body = jsonEncode(selectedCategoryIds);
+    final String body = jsonEncode(selectedCategoryIds);
     try {
       // Send a PUT request to the API
       final response = await http.put(
@@ -88,7 +88,7 @@ class DataService {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization' : 'basic YXBweWtvOjE5MDM='   
       },
-        body: _body, // Convert the request body to JSON
+        body: body, // Convert the request body to JSON
       );
 
       // Check the response status code
@@ -353,6 +353,7 @@ Future<int?> giveOffer(int? clinicId, int applicationId, int price) async {
     // Example: Show error message
     showErrorMessage('Exception occurred: $e');
   }
+  return null;
 }
 
 void showSuccessMessage() {
@@ -427,7 +428,7 @@ Future<bool> renewPassword(String username, String password) async {
 }
 
 Future<void> logout() async {
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
   SharedPreferences prefs;
 
   try {

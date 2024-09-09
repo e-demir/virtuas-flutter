@@ -7,7 +7,12 @@ class CategoryService {
   final String apiUrl = '${CommonInfo.baseApiUrl}Category/Get';
 
   Future<List<AddCategory>> getCategories() async {
-    var response = await http.get(Uri.parse(apiUrl));
+    var response = await http.get(Uri.parse(apiUrl),
+     headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+      },
+    );
 
     if (response.statusCode == 200) {
       List<dynamic> jsonList = jsonDecode(response.body);

@@ -6,7 +6,7 @@ class ClinicUserInfoPage extends StatelessWidget {
   final String username;
   final String password;
 
-  ClinicUserInfoPage({
+  const ClinicUserInfoPage({super.key, 
     required this.username,
     required this.password,
   });
@@ -19,17 +19,17 @@ class ClinicUserInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Clinic User Information')),
+      appBar: AppBar(title: const Text('Clinic User Information')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildCopyRow('Username', username),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             _buildCopyRow('Password', password),
-            SizedBox(height: 16.0),
-            Text(
+            const SizedBox(height: 16.0),
+            const Text(
               'Password will be forced to be changed at first login.',
               style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12.0),
             ),
@@ -45,7 +45,7 @@ class ClinicUserInfoPage extends StatelessWidget {
       children: [
         Text('$label: $text'),
         IconButton(
-          icon: Icon(Icons.copy),
+          icon: const Icon(Icons.copy),
           onPressed: () {
             _copyToClipboard(text);
           },

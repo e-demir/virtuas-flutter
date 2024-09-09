@@ -5,7 +5,6 @@ import 'package:flutter_application_1/models/question.dart';
 import 'package:flutter_application_1/pages/admin/common_widget.dart';
 import 'package:flutter_application_1/pages/category/comman_widget.dart';
 import 'package:flutter_application_1/services/dataService.dart';
-import 'comman_widget.dart';
 
 class AddCategoryPage extends StatefulWidget {
   const AddCategoryPage({super.key});

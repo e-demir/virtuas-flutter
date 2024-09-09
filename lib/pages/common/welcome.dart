@@ -9,7 +9,9 @@ import 'package:flutter_application_1/pages/common/login.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class WelcomePage extends StatelessWidget {
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
+
+  WelcomePage({super.key});
 
   Future<String> isLoggedIn() async {
     String? loggedInRole = await storage.read(key: 'loggedInAs');
@@ -31,7 +33,7 @@ class WelcomePage extends StatelessWidget {
       future: isLoggedIn(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),
@@ -39,15 +41,15 @@ class WelcomePage extends StatelessWidget {
         } else {
           String? loggedInRole = snapshot.data;
           if (loggedInRole == "admin") {
-            return AdminPage(text: "Admin");
+            return const AdminPage(text: "Admin");
           }
           if (loggedInRole == "clinic") {
-            return ClinicLandingPage();
+            return const ClinicLandingPage();
           }
           if (loggedInRole == "client") {
-            return ClientLandingPage();
+            return const ClientLandingPage();
           } else {
-            return LoginPage();
+            return const LoginPage();
           }
         }
       },

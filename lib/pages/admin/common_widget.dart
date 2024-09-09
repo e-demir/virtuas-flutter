@@ -17,7 +17,7 @@ class TextWidget extends StatelessWidget {
       label,
       style: TextStyle(
         fontSize: size,
-        color: Color.fromARGB(255, 240, 240, 240),
+        color: const Color.fromARGB(255, 240, 240, 240),
         fontWeight: weight,
         fontStyle: fontStyle,
       ),
@@ -75,7 +75,7 @@ class AdminCommanContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       decoration: const BoxDecoration(
@@ -144,9 +144,10 @@ class AdminAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String label;
   final List<Widget>? action;
   AdminAppBar({Key? key, required this.label, this.action})
-      : preferredSize = Size.fromHeight(60),
+      : preferredSize = const Size.fromHeight(60),
         super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(

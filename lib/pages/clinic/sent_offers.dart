@@ -90,7 +90,7 @@ class _SentOffersPageState extends State<SentOffersPage> {
                           border: Border.all(
                             color: ColorSelect.primary,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderRadius: const BorderRadius.all(Radius.circular(20)),
                         ),
                         child: ExpansionTile(
                           title: Text(

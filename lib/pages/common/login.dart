@@ -33,7 +33,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
   Future<void> _login() async {
     String username = _usernameController.text;

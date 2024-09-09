@@ -128,7 +128,7 @@ class _ClinicLandingPageState extends State<ClinicLandingPage>
           children: [
             const PossibleClientPreDataScreen(),
             ClinicServicesPage(),
-            SentOffersPage(),
+            const SentOffersPage(),
             ClinicInfoPage()
           ],
         ),

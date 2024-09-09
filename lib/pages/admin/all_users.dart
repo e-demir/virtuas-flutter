@@ -6,6 +6,8 @@ import 'package:flutter_application_1/utils/common_info.dart';
 import 'package:http/http.dart' as http;
 
 class AllUsers extends StatefulWidget {
+  const AllUsers({super.key});
+
   @override
   _AllUsersState createState() => _AllUsersState();
 }
@@ -81,9 +83,9 @@ class _AllUsersState extends State<AllUsers> {
               ? TextField(
                   controller: _searchController,
                   onChanged: _filterUsers,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
-                    focusColor: const Color.fromARGB(0, 242, 242, 242),
+                    focusColor: Color.fromARGB(0, 242, 242, 242),
                     hintText: 'Search...',
                     hintStyle: TextStyle(fontSize: 15, color: Colors.white),
                     border: InputBorder.none,
@@ -104,14 +106,14 @@ class _AllUsersState extends State<AllUsers> {
           ],
         ),
         body: _isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : ListView.builder(
                 itemCount: _filteredUsers.length,
                 itemBuilder: (context, index) {
                   final user = _filteredUsers[index];
                   return Container(
                     margin:
-                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                        const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                     child: Card(
                       elevation: 1,
                       color: Colors.transparent,
@@ -123,16 +125,16 @@ class _AllUsersState extends State<AllUsers> {
                             Row(
                               children: [
                                 CircleAvatar(
-                                  child:
-                                      Icon(Icons.person, color: Colors.white),
                                   backgroundColor:
                                       Theme.of(context).primaryColor,
+                                  child:
+                                      Icon(Icons.person, color: Colors.white),
                                 ),
-                                SizedBox(width: 16.0),
+                                const SizedBox(width: 16.0),
                                 Expanded(
                                   child: Text(
                                     '${user.name} ${user.surname}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
@@ -141,23 +143,23 @@ class _AllUsersState extends State<AllUsers> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 8.0),
+                            const SizedBox(height: 8.0),
                             Text(
                               'Email: ${user.email}',
                               style:
-                                  TextStyle(fontSize: 16, color: Colors.white),
+                                  const TextStyle(fontSize: 16, color: Colors.white),
                             ),
-                            SizedBox(height: 8.0),
+                            const SizedBox(height: 8.0),
                             Text(
                               'Phone: ${user.phoneNumber}',
                               style:
-                                  TextStyle(fontSize: 16, color: Colors.white),
+                                  const TextStyle(fontSize: 16, color: Colors.white),
                             ),
-                            SizedBox(height: 8.0),
+                            const SizedBox(height: 8.0),
                             Text(
                               'Applications: ${user.applicationCount}',
                               style:
-                                  TextStyle(fontSize: 16, color: Colors.white),
+                                  const TextStyle(fontSize: 16, color: Colors.white),
                             ),
                           ],
                         ),

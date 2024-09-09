@@ -180,7 +180,7 @@ class _ClinicDetailPageState extends State<ClinicDetailPage> {
                 height: 70,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 60),
+                margin: const EdgeInsets.symmetric(horizontal: 60),
                 child: ElevatedButton(
                   onPressed: () => _showDeleteConfirmationDialog(context),
                   style: ElevatedButton.styleFrom(
@@ -207,7 +207,7 @@ class _ClinicDetailPageState extends State<ClinicDetailPage> {
                 height: 10,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 60),
+                margin: const EdgeInsets.symmetric(horizontal: 60),
                 child: ElevatedButton(
                   onPressed: () => Navigator.push(
                     context,
@@ -218,7 +218,7 @@ class _ClinicDetailPageState extends State<ClinicDetailPage> {
                   ),
                   style: ElevatedButton.styleFrom(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                   ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -240,7 +240,7 @@ class _ClinicDetailPageState extends State<ClinicDetailPage> {
                 height: 10,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 60),
+                margin: const EdgeInsets.symmetric(horizontal: 60),
                 child: ElevatedButton(
                   onPressed: () => Navigator.push(
                     context,
@@ -252,7 +252,7 @@ class _ClinicDetailPageState extends State<ClinicDetailPage> {
                   ),
                   style: ElevatedButton.styleFrom(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                   ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
