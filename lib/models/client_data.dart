@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/models/answer_question.dart';
+import 'package:vituras_health/models/answer_question.dart';
 
 class ClientData {
   int? applicationId;

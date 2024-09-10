@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/admin/add_clinic.dart';
-import 'package:flutter_application_1/pages/admin/all_applications.dart';
-import 'package:flutter_application_1/pages/admin/all_users.dart';
-import 'package:flutter_application_1/pages/admin/list_clinics.dart';
-import 'package:flutter_application_1/pages/category/add_category.dart';
-import 'package:flutter_application_1/pages/category/list_category.dart';
-import 'package:flutter_application_1/services/dataService.dart';
+import 'package:vituras_health/pages/admin/add_clinic.dart';
+import 'package:vituras_health/pages/admin/all_applications.dart';
+import 'package:vituras_health/pages/admin/all_users.dart';
+import 'package:vituras_health/pages/admin/list_clinics.dart';
+import 'package:vituras_health/pages/category/add_category.dart';
+import 'package:vituras_health/pages/category/list_category.dart';
+import 'package:vituras_health/services/dataService.dart';
 import 'common_widget.dart';
 
 class AdminPage extends StatelessWidget {

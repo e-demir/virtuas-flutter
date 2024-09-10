@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/credit_history.dart';
-import 'package:flutter_application_1/utils/common_info.dart';
+import 'package:vituras_health/models/credit_history.dart';
+import 'package:vituras_health/utils/common_info.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_application_1/pages/admin/common_widget.dart'; // Bu dosyayı da eklediğinizden emin olun
+import 'package:vituras_health/pages/admin/common_widget.dart'; // Bu dosyayı da eklediğinizden emin olun
 
 class ClinicHistoryPage extends StatefulWidget {
   final int id;

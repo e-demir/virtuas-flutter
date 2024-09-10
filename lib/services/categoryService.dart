@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:flutter_application_1/models/add_category.dart';
-import 'package:flutter_application_1/utils/common_info.dart';
+import 'package:vituras_health/models/add_category.dart';
+import 'package:vituras_health/utils/common_info.dart';
 import 'package:http/http.dart' as http;
 
 class CategoryService {

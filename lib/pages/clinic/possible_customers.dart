@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/possible_applications.dart';
-import 'package:flutter_application_1/pages/clinic/possible_customer_detail.dart';
-import 'package:flutter_application_1/services/dataService.dart';
-import 'package:flutter_application_1/utils/color_select.dart';
-import 'package:flutter_application_1/utils/privacy.dart';
+import 'package:vituras_health/models/possible_applications.dart';
+import 'package:vituras_health/pages/clinic/possible_customer_detail.dart';
+import 'package:vituras_health/services/dataService.dart';
+import 'package:vituras_health/utils/color_select.dart';
+import 'package:vituras_health/utils/privacy.dart';
 
 class PossibleClientPreDataScreen extends StatefulWidget {
   const PossibleClientPreDataScreen({super.key});

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/category.dart';
-import 'package:flutter_application_1/models/clinic.dart';
-import 'package:flutter_application_1/pages/admin/clinic_add_credit.dart';
-import 'package:flutter_application_1/pages/admin/clinic_credit_history.dart';
-import 'package:flutter_application_1/pages/admin/common_widget.dart';
-import 'package:flutter_application_1/services/dataService.dart';
+import 'package:vituras_health/models/category.dart';
+import 'package:vituras_health/models/clinic.dart';
+import 'package:vituras_health/pages/admin/clinic_add_credit.dart';
+import 'package:vituras_health/pages/admin/clinic_credit_history.dart';
+import 'package:vituras_health/pages/admin/common_widget.dart';
+import 'package:vituras_health/services/dataService.dart';
 
 class ClinicDetailPage extends StatefulWidget {
   final Clinic clinic;

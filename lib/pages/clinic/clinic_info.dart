@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/clinic.dart';
-import 'package:flutter_application_1/services/dataService.dart';
-import 'package:flutter_application_1/utils/color_select.dart';
+import 'package:vituras_health/models/clinic.dart';
+import 'package:vituras_health/services/dataService.dart';
+import 'package:vituras_health/utils/color_select.dart';
 
 class ClinicInfoPage extends StatefulWidget {
   const ClinicInfoPage({super.key});

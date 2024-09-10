@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/admin/admin_landing.dart';
-import 'package:flutter_application_1/pages/client/client_landing.dart';
-import 'package:flutter_application_1/pages/client/register.dart';
-import 'package:flutter_application_1/pages/clinic/clinic_landing.dart';
-import 'package:flutter_application_1/pages/clinic/possible_customers.dart';
+import 'package:vituras_health/pages/admin/admin_landing.dart';
+import 'package:vituras_health/pages/client/client_landing.dart';
+import 'package:vituras_health/pages/client/register.dart';
+import 'package:vituras_health/pages/clinic/clinic_landing.dart';
+import 'package:vituras_health/pages/clinic/possible_customers.dart';
 
-import 'package:flutter_application_1/pages/common/login.dart';
+import 'package:vituras_health/pages/common/login.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class WelcomePage extends StatelessWidget {

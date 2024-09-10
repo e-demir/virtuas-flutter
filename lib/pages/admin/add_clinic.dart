@@ -1,12 +1,12 @@
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/models/category.dart';
-import 'package:flutter_application_1/pages/admin/admin_landing.dart';
-import 'package:flutter_application_1/pages/admin/clinic_first_save.dart';
-import 'package:flutter_application_1/pages/admin/common_widget.dart';
-import 'package:flutter_application_1/services/dataService.dart';
-import 'package:flutter_application_1/utils/common_info.dart';
+import 'package:vituras_health/models/category.dart';
+import 'package:vituras_health/pages/admin/admin_landing.dart';
+import 'package:vituras_health/pages/admin/clinic_first_save.dart';
+import 'package:vituras_health/pages/admin/common_widget.dart';
+import 'package:vituras_health/services/dataService.dart';
+import 'package:vituras_health/utils/common_info.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;

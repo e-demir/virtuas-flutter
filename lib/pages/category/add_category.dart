@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/models/add_category.dart';
-import 'package:flutter_application_1/models/question.dart';
-import 'package:flutter_application_1/pages/admin/common_widget.dart';
-import 'package:flutter_application_1/pages/category/comman_widget.dart';
-import 'package:flutter_application_1/services/dataService.dart';
+import 'package:vituras_health/models/add_category.dart';
+import 'package:vituras_health/models/question.dart';
+import 'package:vituras_health/pages/admin/common_widget.dart';
+import 'package:vituras_health/pages/category/comman_widget.dart';
+import 'package:vituras_health/services/dataService.dart';
 
 class AddCategoryPage extends StatefulWidget {
   const AddCategoryPage({super.key});

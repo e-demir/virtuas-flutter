@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/applications_detail.dart';
-import 'package:flutter_application_1/pages/client/application_detail.dart';
-import 'package:flutter_application_1/services/dataService.dart';
+import 'package:vituras_health/models/applications_detail.dart';
+import 'package:vituras_health/pages/client/application_detail.dart';
+import 'package:vituras_health/services/dataService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 

@@ -1,6 +1,8 @@
+import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:vituras_health/utils/common_info.dart';
 
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
@@ -8,10 +10,52 @@ class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('User Registration')),
-      body: const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: RegistrationForm(),
+      appBar: AppBar(
+        toolbarHeight: 50.0, // Adjust height as needed
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xff1d2b64), Color(0xfff8cdda)],
+              stops: [0, 1],
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+            ),
+          ),
+          child: Center(
+            child: Text(
+              'Change Password', // Adjust title as needed
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: Colors.white),
+            ),
+          ),
+        ),
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xff1d2b64), Color(0xfff8cdda)],
+            stops: [0, 0.5],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+          ),
+        ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                  ),
+                  child: RegistrationForm(),
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -66,7 +110,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
     String phone = _phoneNumberController.text;
     String password = _passwordController.text;
 
-    String apiUrl = 'https://localhost:7128/api/Auth/Register';
+    // String apiUrl = 'https://localhost:7128/api/Auth/Register';
+
+    
+    String apiUrl = '${CommonInfo.baseApiUrl}Auth/Register';
 
     var postData = jsonEncode({
       'name': name,
@@ -76,151 +123,165 @@ class _RegistrationFormState extends State<RegistrationForm> {
       'PhoneNumber': phone
     });
 
-    // POST isteği yapılıyor
+    // POST request
     var response = await http.post(
       Uri.parse(apiUrl),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization' : 'basic YXBweWtvOjE5MDM='   
+        'Authorization': 'basic YXBweWtvOjE5MDM='
       },
       body: postData,
     );
 
     if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Registered successfully!')),
-      );
-      Future.delayed(const Duration(seconds: 1), () {
+       ArtSweetAlert.show(
+  context: context,
+  artDialogArgs: ArtDialogArgs(
+    type: ArtSweetAlertType.success,
+    title: "Register Successfull!",
+    text: 'Lets login and go',
+
+  )
+);
+
+
+      Future.delayed(const Duration(seconds: 3), () {
         Navigator.of(context).pushReplacementNamed('/login');
       });
     } else {
-      // Hata durumunda hata mesajını yazdırıyoruz
+      // Log error message
       print('Failed to make POST request.');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextFormField(
-            controller: _nameController,
-            decoration: const InputDecoration(
-              labelText: 'Name',
-            ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter name';
-              }
-              return null;
-            },
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: MediaQuery.of(context).viewInsets.bottom > 0 ? 20 : 100),
+              TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter name';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _surnameController,
+                decoration: const InputDecoration(
+                  labelText: 'Surname',
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter surname';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter email';
+                  } else if (!isValidEmail(value)) {
+                    return 'Please enter a valid email';
+                  }
+                  return null;
+                },
+              ),
+              // InternationalPhoneNumberInput(
+              //   onInputChanged: (PhoneNumber number) {
+              //     print(number.phoneNumber); // handle phone number change
+              //   },
+              //   selectorConfig: SelectorConfig(
+              //     selectorType: PhoneInputSelectorType.DIALOG,
+              //   ),
+              //   ignoreBlank: false,
+              //   autoValidateMode: AutovalidateMode.disabled,
+              //   selectorTextStyle: TextStyle(color: Colors.black),
+              //   initialValue: PhoneNumber(isoCode: initialCountry),
+              //   textFieldController: _phoneNumberController,
+              //   formatInput: true,
+              //   keyboardType: TextInputType.phone,
+              //   onSaved: (PhoneNumber number) {
+              //     print('On Saved: $number');
+              //   },
+              // ),
+              TextFormField(
+                controller: _phoneNumberController,
+                keyboardType: TextInputType.phone,
+                decoration: const InputDecoration(
+                  labelText: 'Phone Number',
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter phone number';
+                  } else if (value.length > 30) {
+                    return 'Phone number must be less than or equal to 30 characters';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Password (4 digits only)',
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter password';
+                  } else if (value.length != 4) {
+                    return 'Password must be exactly 4 digits';
+                  } else if (!isNumeric(value)) {
+                    return 'Password must contain only numbers';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _confirmPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Confirm Password',
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter confirm password';
+                  } else if (value != _passwordController.text) {
+                    return 'Passwords do not match';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    // If all validations pass
+                    _register();
+                  }
+                },
+                child: const Text('Register'),
+              ),
+            ],
           ),
-          TextFormField(
-            controller: _surnameController,
-            decoration: const InputDecoration(
-              labelText: 'Surname',
-            ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter surname';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              labelText: 'Email',
-            ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter email';
-              } else if (!isValidEmail(value)) {
-                return 'Please enter a valid email';
-              }
-              return null;
-            },
-          ),
-          // InternationalPhoneNumberInput(
-          //   onInputChanged: (PhoneNumber number) {
-          //     print(number.phoneNumber); // handle phone number change
-          //   },
-          //   selectorConfig: SelectorConfig(
-          //     selectorType: PhoneInputSelectorType.DIALOG,
-          //   ),
-          //   ignoreBlank: false,
-          //   autoValidateMode: AutovalidateMode.disabled,
-          //   selectorTextStyle: TextStyle(color: Colors.black),
-          //   initialValue: PhoneNumber(isoCode: initialCountry),
-          //   textFieldController: _phoneNumberController,
-          //   formatInput: true,
-          //   keyboardType: TextInputType.phone,
-          //   onSaved: (PhoneNumber number) {
-          //     print('On Saved: $number');
-          //   },
-          // ),
-          TextFormField(
-            controller: _phoneNumberController,
-            keyboardType: TextInputType.phone,
-            decoration: const InputDecoration(
-              labelText: 'Phone Number',
-            ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter phone number';
-              } else if (value.length > 30) {
-                return 'Phone number must be less than or equal to 30 characters';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _passwordController,
-            obscureText: true,
-            decoration: const InputDecoration(
-              labelText: 'Password (4 digits only)',
-            ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter password';
-              } else if (value.length != 4) {
-                return 'Password must be exactly 4 digits';
-              } else if (!isNumeric(value)) {
-                return 'Password must contain only numbers';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _confirmPasswordController,
-            obscureText: true,
-            decoration: const InputDecoration(
-              labelText: 'Confirm Password',
-            ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter confirm password';
-              } else if (value != _passwordController.text) {
-                return 'Passwords do not match';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                // If all validations pass
-                _register();
-              }
-            },
-            child: const Text('Register'),
-          ),
-        ],
+        ),
       ),
     );
   }

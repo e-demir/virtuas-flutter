@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/application.dart';
-import 'package:flutter_application_1/utils/common_style.dart';
+import 'package:vituras_health/models/application.dart';
+import 'package:vituras_health/utils/common_style.dart';
 import 'package:intl/intl.dart';
 
 class ApplicationDetailPage extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/answer.dart';
-import 'package:flutter_application_1/models/summary.dart';
-import 'package:flutter_application_1/utils/common_info.dart';
-import 'package:flutter_application_1/utils/common_style.dart';
+import 'package:vituras_health/models/answer.dart';
+import 'package:vituras_health/models/summary.dart';
+import 'package:vituras_health/utils/common_info.dart';
+import 'package:vituras_health/utils/common_style.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';

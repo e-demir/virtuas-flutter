@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/detail_user.dart';
-import 'package:flutter_application_1/pages/admin/common_widget.dart';
-import 'package:flutter_application_1/utils/common_info.dart';
+import 'package:vituras_health/models/detail_user.dart';
+import 'package:vituras_health/pages/admin/common_widget.dart';
+import 'package:vituras_health/utils/common_info.dart';
 import 'package:http/http.dart' as http;
 
 class AllUsers extends StatefulWidget {

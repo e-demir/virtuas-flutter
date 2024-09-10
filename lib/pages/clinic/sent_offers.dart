@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/client_data.dart';
-import 'package:flutter_application_1/models/client_data_response.dart';
-import 'package:flutter_application_1/services/dataService.dart';
-import 'package:flutter_application_1/utils/color_select.dart';
+import 'package:vituras_health/models/client_data.dart';
+import 'package:vituras_health/models/client_data_response.dart';
+import 'package:vituras_health/services/dataService.dart';
+import 'package:vituras_health/utils/color_select.dart';
 
 class SentOffersPage extends StatefulWidget {
   const SentOffersPage({Key? key}) : super(key: key);

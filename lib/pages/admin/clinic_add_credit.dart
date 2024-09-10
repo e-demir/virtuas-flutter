@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/models/clinic.dart';
-import 'package:flutter_application_1/pages/admin/common_widget.dart';
-import 'package:flutter_application_1/services/dataService.dart';
+import 'package:vituras_health/models/clinic.dart';
+import 'package:vituras_health/pages/admin/common_widget.dart';
+import 'package:vituras_health/services/dataService.dart';
 import 'dart:async';
 
 class AddCreditPage extends StatefulWidget {

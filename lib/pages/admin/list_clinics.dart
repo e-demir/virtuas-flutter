@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/clinic.dart';
-import 'package:flutter_application_1/pages/admin/clinic_details.dart';
-import 'package:flutter_application_1/pages/admin/common_widget.dart';
-import 'package:flutter_application_1/services/dataService.dart'; // fetchClinics fonksiyonunu buraya import edin
+import 'package:vituras_health/models/clinic.dart';
+import 'package:vituras_health/pages/admin/clinic_details.dart';
+import 'package:vituras_health/pages/admin/common_widget.dart';
+import 'package:vituras_health/services/dataService.dart'; // fetchClinics fonksiyonunu buraya import edin
 
 class ClinicsPage extends StatefulWidget {
   const ClinicsPage({super.key});

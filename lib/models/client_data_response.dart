@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/models/client_data.dart';
+import 'package:vituras_health/models/client_data.dart';
 
 class ClientDataResponse {
   List<ClientData>? clientDataList;

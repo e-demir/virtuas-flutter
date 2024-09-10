@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/user.dart';
-import 'package:flutter_application_1/pages/client/change_password.dart';
-import 'package:flutter_application_1/services/dataService.dart';
-import 'package:flutter_application_1/utils/color_select.dart';
+import 'package:vituras_health/models/user.dart';
+import 'package:vituras_health/pages/client/change_password.dart';
+import 'package:vituras_health/services/dataService.dart';
+import 'package:vituras_health/utils/color_select.dart';
 
 class ProfilePage extends StatefulWidget {
   final int userId;
@@ -249,6 +249,7 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () {
               // Add your logout logic here
               logout();
+              Navigator.pushReplacementNamed(context, '/login');
             },
             child: const Text('Logout'),
           ),

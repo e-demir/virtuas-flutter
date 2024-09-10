@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/answer.dart';
-import 'package:flutter_application_1/models/category.dart';
-import 'package:flutter_application_1/models/question.dart';
-import 'package:flutter_application_1/pages/client/summary.dart';
-import 'package:flutter_application_1/services/categoryService.dart';
-import 'package:flutter_application_1/services/dataService.dart'; // Assuming DataService contains deleteQuestionById
-import 'package:flutter_application_1/models/summary.dart'; // Import your model
+import 'package:vituras_health/models/answer.dart';
+import 'package:vituras_health/models/category.dart';
+import 'package:vituras_health/models/question.dart';
+import 'package:vituras_health/pages/client/summary.dart';
+import 'package:vituras_health/services/categoryService.dart';
+import 'package:vituras_health/services/dataService.dart'; // Assuming DataService contains deleteQuestionById
+import 'package:vituras_health/models/summary.dart'; // Import your model
 
 class CategoryDetailPage extends StatefulWidget {
   final Category? category;

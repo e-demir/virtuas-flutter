@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/clinic/clinic_info.dart';
-import 'package:flutter_application_1/pages/clinic/clinic_services.dart';
-import 'package:flutter_application_1/pages/clinic/possible_customers.dart';
-import 'package:flutter_application_1/pages/clinic/sent_offers.dart';
-import 'package:flutter_application_1/services/dataService.dart';
-import 'package:flutter_application_1/utils/color_select.dart';
+import 'package:vituras_health/pages/clinic/clinic_info.dart';
+import 'package:vituras_health/pages/clinic/clinic_services.dart';
+import 'package:vituras_health/pages/clinic/possible_customers.dart';
+import 'package:vituras_health/pages/clinic/sent_offers.dart';
+import 'package:vituras_health/services/dataService.dart';
+import 'package:vituras_health/utils/color_select.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Import your actual screens
 

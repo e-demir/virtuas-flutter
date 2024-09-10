@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/models/application.dart';
+import 'package:vituras_health/models/application.dart';
 
 class ApplicationDetailsResponse {
   List<Application>? applicationDetails;

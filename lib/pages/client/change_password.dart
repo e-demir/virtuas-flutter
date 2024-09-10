@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/utils/common_info.dart';
-import 'package:flutter_application_1/utils/common_style.dart';
+import 'package:vituras_health/utils/common_info.dart';
+import 'package:vituras_health/utils/common_style.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

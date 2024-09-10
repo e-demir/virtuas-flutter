@@ -1,15 +1,15 @@
 // data_service.dart
 
 import 'dart:convert';
-import 'package:flutter_application_1/models/add_category.dart';
-import 'package:flutter_application_1/models/applications_detail.dart';
-import 'package:flutter_application_1/models/category.dart';
-import 'package:flutter_application_1/models/client_data_response.dart';
-import 'package:flutter_application_1/models/clinic.dart';
-import 'package:flutter_application_1/models/possible_applications.dart';
-import 'package:flutter_application_1/models/question.dart';
-import 'package:flutter_application_1/models/user.dart';
-import 'package:flutter_application_1/utils/common_info.dart';
+import 'package:vituras_health/models/add_category.dart';
+import 'package:vituras_health/models/applications_detail.dart';
+import 'package:vituras_health/models/category.dart';
+import 'package:vituras_health/models/client_data_response.dart';
+import 'package:vituras_health/models/clinic.dart';
+import 'package:vituras_health/models/possible_applications.dart';
+import 'package:vituras_health/models/question.dart';
+import 'package:vituras_health/models/user.dart';
+import 'package:vituras_health/utils/common_info.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';

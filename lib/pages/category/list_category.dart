@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/add_category.dart'; // Update sayfasının import edilmesi
-import 'package:flutter_application_1/pages/category/update_category.dart';
-import 'package:flutter_application_1/services/categoryService.dart';
-import 'package:flutter_application_1/pages/admin/common_widget.dart'; // Admin common widget
+import 'package:vituras_health/models/add_category.dart';
+import 'package:vituras_health/models/question.dart';
+import 'package:vituras_health/pages/admin/common_widget.dart';
+import 'package:vituras_health/services/categoryService.dart';
 
 class CategoryListPage extends StatefulWidget {
   const CategoryListPage({super.key});

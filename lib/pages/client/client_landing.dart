@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/category.dart';
-import 'package:flutter_application_1/pages/client/client_selected_category.dart';
-import 'package:flutter_application_1/pages/client/applications.dart';
-import 'package:flutter_application_1/pages/client/profile.dart';
-import 'package:flutter_application_1/services/dataService.dart';
+import 'package:vituras_health/models/category.dart';
+import 'package:vituras_health/pages/client/client_selected_category.dart';
+import 'package:vituras_health/pages/client/applications.dart';
+import 'package:vituras_health/pages/client/profile.dart';
+import 'package:vituras_health/services/dataService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ClientLandingPage extends StatefulWidget {

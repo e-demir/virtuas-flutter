@@ -1,6 +1,6 @@
-import 'package:flutter_application_1/models/answer.dart';
-import 'package:flutter_application_1/models/category.dart';
-import 'package:flutter_application_1/models/question.dart';
+import 'package:vituras_health/models/answer.dart';
+import 'package:vituras_health/models/category.dart';
+import 'package:vituras_health/models/question.dart';
 
 class SummaryData {
   final Category category;
