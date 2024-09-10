@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vituras_health/models/add_category.dart';
 import 'package:vituras_health/models/question.dart';
 import 'package:vituras_health/pages/admin/common_widget.dart';
+import 'package:vituras_health/pages/category/update_category.dart';
 import 'package:vituras_health/services/categoryService.dart';
 
 class CategoryListPage extends StatefulWidget {
